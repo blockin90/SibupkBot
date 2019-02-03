@@ -1,0 +1,35 @@
+﻿<UserControl x:Class="UPK.Controls.DaySchedule"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:UPK.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="438" Background="#FFE5FFDF" MinWidth="330" >
+    <Border BorderThickness="1" BorderBrush="Gray">
+        <StackPanel>
+            <TextBlock DockPanel.Dock="Top" Foreground="Black" Text="{Binding Path=Date,StringFormat=dd.MM.yyyy - dddd, ConverterCulture=Ru-ru}" FontWeight="Bold"/>
+            <DataGrid x:Name="gLessons" CanUserSortColumns="False" ItemsSource="{Binding Lessons}" IsReadOnly="True" AutoGenerateColumns="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Время" Width="auto" Binding="{Binding Path=TimeInterval}"/>
+                    <DataGridTemplateColumn Width="*" Header="Дисциплина">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock TextWrapping="Wrap" Text="{Binding Path=Discipline}" VerticalAlignment="Top" Margin="0"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn MaxWidth="80" MinWidth="40" Width="auto" Header="Поток">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock TextWrapping="Wrap" Text="{Binding Path=Group}" VerticalAlignment="Top" Margin="0"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTextColumn Header="Ауд-я" Width="auto"  MinWidth="40" Binding="{Binding Path=Auditory}"/>
+                    <DataGridTextColumn Header="Тип" Width="auto" MinWidth="35" Binding="{Binding Path=LessonType, Converter={StaticResource lessonTypeToStringConverter}}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+    </Border>
+</UserControl>

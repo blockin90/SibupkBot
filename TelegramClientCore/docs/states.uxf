@@ -1,0 +1,487 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.2">
+  <zoom_level>8</zoom_level>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>192</x>
+      <y>232</y>
+      <w>104</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>InitialState
+bg=green</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>288</x>
+      <y>128</y>
+      <w>128</w>
+      <h>136</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+ФИО</panel_attributes>
+    <additional_attributes>10.0;150.0;20.0;40.0;80.0;10.0;140.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>520</x>
+      <y>208</y>
+      <w>120</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>TeacherMonthSelect
+bg=green</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>752</x>
+      <y>64</y>
+      <w>152</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>TeacherShowSchedule</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>640</x>
+      <y>64</y>
+      <w>128</w>
+      <h>88</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+Сегодня
+Завтра
+Неделя
+dd.MM
+dd.MM.yy
+dd.MM.yyyy</panel_attributes>
+    <additional_attributes>10.0;20.0;140.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>432</x>
+      <y>16</y>
+      <w>344</w>
+      <h>128</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+Назад</panel_attributes>
+    <additional_attributes>410.0;60.0;350.0;20.0;30.0;20.0;10.0;140.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>520</x>
+      <y>56</y>
+      <w>128</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>TeacherSelectDate
+bg=green</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>400</x>
+      <y>128</y>
+      <w>112</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>TeacherSelectAction
+bg=green</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>496</x>
+      <y>152</y>
+      <w>128</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+Отчет по нагрузке</panel_attributes>
+    <additional_attributes>10.0;10.0;50.0;70.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>736</x>
+      <y>208</y>
+      <w>120</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>TeacherMonthReport
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>496</x>
+      <y>80</y>
+      <w>104</w>
+      <h>64</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+Расписание</panel_attributes>
+    <additional_attributes>10.0;60.0;30.0;60.0;50.0;40.0;50.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>464</x>
+      <y>56</y>
+      <w>72</w>
+      <h>88</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+Назад</panel_attributes>
+    <additional_attributes>70.0;10.0;20.0;10.0;10.0;50.0;40.0;90.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>456</x>
+      <y>152</y>
+      <w>80</w>
+      <h>96</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+Назад</panel_attributes>
+    <additional_attributes>80.0;100.0;30.0;90.0;10.0;50.0;50.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>632</x>
+      <y>216</y>
+      <w>120</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+Текущий месяц
+Прошлый месяц
+число из [1;12]</panel_attributes>
+    <additional_attributes>10.0;20.0;130.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>624</x>
+      <y>184</y>
+      <w>144</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+Назад</panel_attributes>
+    <additional_attributes>160.0;30.0;100.0;20.0;40.0;20.0;10.0;30.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>168</x>
+      <y>48</y>
+      <w>160</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>halign=left
+Сохраняемые состояния
+
+bg=green</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>344</x>
+      <y>320</y>
+      <w>104</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>StudentSelectDates
+bg=green</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLSpecialState</id>
+    <coordinates>
+      <x>88</x>
+      <y>248</y>
+      <w>16</w>
+      <h>16</h>
+    </coordinates>
+    <panel_attributes>type=initial</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>96</x>
+      <y>240</y>
+      <w>112</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+/start</panel_attributes>
+    <additional_attributes>10.0;20.0;120.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>544</x>
+      <y>328</y>
+      <w>152</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>StudentShowSchedule
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>440</x>
+      <y>328</y>
+      <w>120</w>
+      <h>88</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+Сегодня
+Завтра
+Неделя
+dd.MM
+dd.MM.yy
+dd.MM.yyyy</panel_attributes>
+    <additional_attributes>10.0;20.0;130.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>288</x>
+      <y>264</y>
+      <w>280</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+Назад</panel_attributes>
+    <additional_attributes>330.0;80.0;150.0;30.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>576</x>
+      <y>352</y>
+      <w>96</w>
+      <h>104</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+Сегодня
+Завтра
+Неделя
+dd.MM
+dd.MM.yy
+dd.MM.yyyy</panel_attributes>
+    <additional_attributes>10.0;10.0;20.0;40.0;80.0;40.0;100.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>256</x>
+      <y>272</y>
+      <w>104</w>
+      <h>88</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+Назад</panel_attributes>
+    <additional_attributes>110.0;80.0;60.0;90.0;20.0;80.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>776</x>
+      <y>88</y>
+      <w>120</w>
+      <h>112</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+Сегодня
+Завтра
+Неделя
+dd.MM
+dd.MM.yy
+dd.MM.yyyy</panel_attributes>
+    <additional_attributes>10.0;10.0;20.0;50.0;120.0;50.0;130.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>544</x>
+      <y>520</y>
+      <w>120</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>Feedback
+bg=yellow</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>232</x>
+      <y>272</y>
+      <w>160</w>
+      <h>264</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+Настройки</panel_attributes>
+    <additional_attributes>20.0;10.0;10.0;100.0;20.0;170.0;180.0;310.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>368</x>
+      <y>520</y>
+      <w>72</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>Config
+bg=yellow</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>432</x>
+      <y>512</y>
+      <w>128</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+Обратная связь</panel_attributes>
+    <additional_attributes>10.0;20.0;140.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>544</x>
+      <y>592</y>
+      <w>120</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>DisplayOptions
+bg=yellow</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>432</x>
+      <y>536</y>
+      <w>168</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+Параметры отображения</panel_attributes>
+    <additional_attributes>10.0;10.0;50.0;60.0;150.0;70.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>168</x>
+      <y>80</y>
+      <w>160</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>halign=left
+Нереализованные состояния
+
+bg=yellow</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>400</x>
+      <y>456</y>
+      <w>240</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+Любое сообщение</panel_attributes>
+    <additional_attributes>280.0;80.0;260.0;40.0;230.0;20.0;80.0;20.0;30.0;40.0;10.0;80.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>424</x>
+      <y>544</y>
+      <w>136</w>
+      <h>88</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+Назад</panel_attributes>
+    <additional_attributes>150.0;90.0;100.0;90.0;30.0;60.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>656</x>
+      <y>584</y>
+      <w>296</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+Включить/отключить показ преподавателей
+Включить/отключить время конца пары
+Включить/отключить показ выходных дней</panel_attributes>
+    <additional_attributes>10.0;20.0;180.0;10.0;240.0;30.0;200.0;50.0;10.0;40.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>176</x>
+      <y>168</y>
+      <w>136</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+Неполное название 
+группы/преподавателя</panel_attributes>
+    <additional_attributes>60.0;80.0;30.0;60.0;40.0;20.0;120.0;20.0;130.0;50.0;110.0;80.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>288</x>
+      <y>152</y>
+      <w>136</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+Назад</panel_attributes>
+    <additional_attributes>150.0;10.0;140.0;40.0;90.0;90.0;10.0;130.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>272</x>
+      <y>272</y>
+      <w>88</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+Группа</panel_attributes>
+    <additional_attributes>10.0;10.0;40.0;50.0;90.0;70.0</additional_attributes>
+  </element>
+</diagram>

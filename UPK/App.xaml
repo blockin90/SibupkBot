@@ -1,0 +1,45 @@
+﻿<Application x:Class="UPK.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:UPK"
+             xmlns:views="clr-namespace:UPK.View"
+             xmlns:viewmodels="clr-namespace:UpkViewModel;assembly=UpkViewModel"
+             xmlns:reports="clr-namespace:UpkViewModel.TeacherReport;assembly=UpkViewModel"
+             xmlns:converter="clr-namespace:UPK.Converters"
+             StartupUri="StartWindow.xaml">
+    <Application.Resources>
+        <SolidColorBrush x:Key="SelectedControlBackground" Color="#FFF4F5F7"/>
+        <SolidColorBrush x:Key="DefaultBorderBrush" Color="LightGray"/>
+        <!--#region styles-->
+        <Style TargetType="Button">
+            <Setter Property="Margin" Value="4"/>
+        </Style>
+        <Style TargetType="CheckBox">
+            <Setter Property="Margin" Value="4"/>
+        </Style>
+        <Style TargetType="ComboBox">
+            <Setter Property="Margin" Value="4"/>
+        </Style>
+        <Style TargetType="Image">
+            <Setter Property="Margin" Value="4"/>
+        </Style>
+        <Style TargetType="TextBlock">
+            <Setter Property="Margin" Value="4"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+        <!--#endregion-->
+        <!--#region value converters-->
+        <converter:DatesCollectionToStringConverter x:Key="datesRangeToStringConverter"/>
+        <converter:LessonTypeToStringConverter x:Key="lessonTypeToStringConverter"/>
+        <converter:ICollectionToVisibilityConverter x:Key="collectionToVisibilityConverter"/>
+        <!--#endregion-->
+        <!--#region View Model data templates-->
+        <DataTemplate DataType="{x:Type viewmodels:TeacherScheduleViewModel}">
+            <views:TeacherScheduleView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type reports:TeacherReportsViewModel}">
+            <views:TeacherReportsView/>
+        </DataTemplate>
+        <!--#endregion-->
+    </Application.Resources>
+</Application>

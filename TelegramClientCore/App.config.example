@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+  <appSettings>
+    <add key="BotToken" value="PLACE YOUR TELEGRAM BOT TOKEN HERE"/>
+    <add key="ProxyAddress" value="195.189.60.23:3128"/>
+    <add key="AdminId" value="123456"/>
+  </appSettings>
+</configuration>
