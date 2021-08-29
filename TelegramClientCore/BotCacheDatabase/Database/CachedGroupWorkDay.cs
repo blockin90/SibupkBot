@@ -16,7 +16,7 @@ namespace TelegramClientCore.BotCache.Database
         [NotMapped]
         public DateTime Date
         {
-            get => WorkDay.Date;
+            get => WorkDay != null ? WorkDay.Date : default(DateTime);
             set => WorkDay.Date = value;
         }
 

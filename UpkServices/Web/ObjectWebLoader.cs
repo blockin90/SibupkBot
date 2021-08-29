@@ -26,27 +26,27 @@ namespace UpkServices.Web
                 }
                 result = Load<StudentWorkDay>(
                     HtmlNodeParsers.DecodeStudentWorkDay,
-                    HtmlNodeParsers.StudentBaseUrl,
+                    HtmlNodeParsers.StudentBaseUrl + "&" + postParameters,
                     HtmlNodeParsers.StudentWorkDayXPath,
-                    postParameters);
+                    string.Empty);
             } else if (type == typeof(WorkDay)) {
                 if (String.IsNullOrEmpty(postParameters)) {
                     throw new ArgumentException("by loading work days post parameters must not be empty ");
                 }
                 result = Load<WorkDay>(
                     HtmlNodeParsers.DecodeWorkDay,
-                    HtmlNodeParsers.TeacherBaseUrl,
+                    HtmlNodeParsers.TeacherBaseUrl + "&" + postParameters,
                     HtmlNodeParsers.WorkDayXPath,
-                    postParameters);
+                    string.Empty);
             } else if (type == typeof(WeekInterval)) {
                 if (String.IsNullOrEmpty(postParameters)) {
                     throw new ArgumentException("by loading week intervals post parameters must not be empty ");
                 }
                 result = Load<WeekInterval>(
                     HtmlNodeParsers.DecodeTimeInterval,
-                    HtmlNodeParsers.TeacherBaseUrl,
+                    HtmlNodeParsers.TeacherBaseUrl + "&" + postParameters,
                     HtmlNodeParsers.DateIntervalsXpath,
-                    postParameters);
+                    string.Empty);
             } else if( type == typeof(UpkModel.Database.Group)) {
                 if (String.IsNullOrEmpty(postParameters)) {
                     throw new ArgumentException("by loading groups post parameters must not be empty ");

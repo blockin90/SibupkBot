@@ -47,7 +47,7 @@
         public void UpdateWeekIntervals(IEnumerable<WeekInterval> weekIntervals)
         {
             lock (WeekIntervals) {
-                Database.ExecuteSqlCommand("delete from WeekIntervals");
+                Database.ExecuteSqlRaw("delete from WeekIntervals");
                 WeekIntervals.AddRange(weekIntervals);
                 SaveChanges();
             }
@@ -55,8 +55,8 @@
         public void UpdateTeachers( IEnumerable<Teacher> teachers)
         {
             lock (Teachers) {
-                Database.ExecuteSqlCommand("delete from Teachers");
-                Database.ExecuteSqlCommand("delete from Departments");
+                Database.ExecuteSqlRaw("delete from Teachers");
+                Database.ExecuteSqlRaw("delete from Departments");
                 SaveChanges();
                 Teachers.AddRange(teachers);
                 SaveChanges();
@@ -66,7 +66,7 @@
         public void UpdateGroups( IEnumerable<Group> groups)
         {
             lock (Groups) {
-                Database.ExecuteSqlCommand("delete from Groups");
+                Database.ExecuteSqlRaw("delete from Groups");
                 SaveChanges();
                 Groups.AddRange(groups);
                 SaveChanges();

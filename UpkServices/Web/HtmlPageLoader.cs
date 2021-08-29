@@ -20,7 +20,7 @@ namespace UpkServices.Web
             //через MakeWebRequest(..) делаем запрос и тут же запрашиваем ответ
             using (WebResponse resp = MakeWebRequest(url, postData).GetResponse())
             using (Stream stream = resp.GetResponseStream()) {
-                using (StreamReader sr = new StreamReader(stream, DefaultEncoding)) {
+                using (StreamReader sr = new StreamReader(stream)) {
                     return sr.ReadToEnd();
                 }
             }

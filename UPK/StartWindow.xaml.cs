@@ -33,7 +33,7 @@ namespace SupkServices
             ServiceProvider.RegisterService(typeof(IFileDialogService), typeof(WpfFileDialogService));
             ServiceProvider.RegisterService(typeof(IMessageService), new WpfMessageService());
 
-           // DataContext = new MainTeacherViewModel();
+            DataContext = new MainTeacherViewModel();
         }
         
         #region Top menu button handlers

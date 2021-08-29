@@ -15,7 +15,7 @@ namespace UPK.Converters
         {
             var dates = value as IEnumerable<DateTime>;
             if (dates.Count() == 0) {
-                throw new ArgumentException("dates collection must be not empty");
+                throw new ArgumentException("dates collection must not be empty");
             }
             return $"{dates.First().ToShortDateString()} - {dates.Last().ToShortDateString()}";
         }

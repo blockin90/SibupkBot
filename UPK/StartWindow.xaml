@@ -13,7 +13,6 @@
         MaxHeight="{DynamicResource {x:Static SystemParameters.MaximizedPrimaryScreenHeightKey}}" 
         >
     <Window.Resources>
-        <viewmodels:MainTeacherViewModel x:Key="teacherViewModel"/>
         <RoutedUICommand x:Key="DoubleClickCommand"/>
         <Style TargetType="TextBlock" x:Key="MenuButtonStyle">
             <Style.Setters>
@@ -51,7 +50,7 @@
     <Window.CommandBindings>
         <CommandBinding Command="{StaticResource DoubleClickCommand}" Executed="MaximizeRestore_Click"/>
     </Window.CommandBindings>
-    <DockPanel Background="#FFECEDF0" DataContext="{StaticResource teacherViewModel}" >
+    <DockPanel Background="#FFECEDF0">
         <DockPanel DockPanel.Dock="Top" Background="#FFECEDF0"  MouseDown="WindowHeader_MouseDown">
             <Image Source="logo.ico" DockPanel.Dock="Left" Width="32" HorizontalAlignment="Left"/>
             <StackPanel  DockPanel.Dock="Right" Orientation="Horizontal">
@@ -65,7 +64,7 @@
                 <MouseBinding Command="{StaticResource DoubleClickCommand}" MouseAction="LeftDoubleClick"/>
             </DockPanel.InputBindings>
         </DockPanel>
-        <DockPanel DockPanel.Dock="Top"  IsEnabled="{Binding Path=IsEnabled}">
+        <DockPanel DockPanel.Dock="Top">
             <Border  DockPanel.Dock="Right">
                 <Border.Style>
                     <Style TargetType="Border">
@@ -87,7 +86,8 @@
             <!--IsEditable="True"-->
             <ComboBox x:Name="cmbTeachersList" DisplayMemberPath="FIO" ItemsSource="{Binding Teachers}" SelectedItem="{Binding Path=SelectedTeacher}"/>
         </DockPanel>
-        <DockPanel DockPanel.Dock="Top" Background="Transparent" Margin="4,4,4,0"  IsEnabled="{Binding Path=IsEnabled}">
+        <DockPanel DockPanel.Dock="Top" Background="Transparent" Margin="4,4,4,0">
+            <!--todo:почему не отображаются названия в конструкторе(???)-->
             <controls:TabItem Header="Расписание" GroupName="tabItem" 
                               Command="{Binding SwitchViewModelCommand}" 
                               CommandParameter="{x:Type viewmodels:TeacherScheduleViewModel}" />

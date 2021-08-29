@@ -32,6 +32,7 @@ namespace TelegramClientCore.BotCache.Database
         {
             //производим много поисковых операций с датой, создаем индекс (а надо ли?)
             modelBuilder.Entity<CachedGroupWorkDay>().HasIndex(wd => wd.Date);
+            modelBuilder.Entity<CachedGroupWorkDay>().HasOne("WorkDay");
         }
 
         public override void Dispose()

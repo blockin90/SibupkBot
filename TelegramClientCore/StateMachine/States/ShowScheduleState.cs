@@ -58,8 +58,8 @@ namespace TelegramClientCore.StateMachine.States
                     result = GetMessageHeader() + Environment.NewLine + result;
                 }
                 StateMachineContext.SendMessageAsync(result, ReplyKeyboard, ParseMode.Html);
-            } catch {
-                MyTrace.WriteLine($"user id = {StateMachineContext.ChatIdentifier}");
+            } catch (Exception exception) {
+                MyTrace.WriteLine($"user id = {StateMachineContext.ChatIdentifier}, error message: {exception.Message}");
                 StateMachineContext.SendMessageAsync("Во время запроса произошла ошибка. Повторите попытку позже.", ReplyKeyboard);
             }
         }

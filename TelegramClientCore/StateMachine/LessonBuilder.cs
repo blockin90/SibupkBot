@@ -48,6 +48,10 @@ namespace TelegramClientCore.StateMachine
             string discipline = lesson.Discipline +
                 (lesson.LessonType == LessonType.Unknown ? "" : $" ({lesson.LessonType.GetFriendlyName()})");
             stringBuilder.Append(discipline);
+            if( lesson.Online) {
+                stringBuilder.Append(" Онлайн");
+            }
+
             return this;
         }
         public LessonBuilder AddNewLine()

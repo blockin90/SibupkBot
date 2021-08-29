@@ -24,6 +24,7 @@ namespace UpkModel.Database
         public string Group { get; set; }
         [Required, MaxLength(20)]
         public string Auditory { get; set; }
+        public bool Online { get; set; }
         public LessonType LessonType { get; set; }
 
         public int TeacherId { get; set; }
@@ -41,17 +42,17 @@ namespace UpkModel.Database
                     case 2:
                         return "10:15-11:50";
                     case 3:
-                        return "12:15-13:50";
+                        return "12:20-13:55";
                     case 4:
-                        return "14:00-15:35";
+                        return "14:05-15:40";
                     case 5:
-                        return "15:45-17:20";
+                        return "15:50-17:25";
                     case 6:
-                        return "17:30-19:05";
+                        return "17:35-19:10";
                     case 7:
-                        return "19:15-20:50";
+                        return "19:20-20:55";
                     case 8:
-                        return "21:00-22:35";
+                        return "21:05-22:40";
                     default:
                         return "очень поздно";
                 }

@@ -16,7 +16,11 @@ namespace UpkServices.Web
     /// </remarks>
     public static class WeekIntervalsFactory
     {
-        //todo: добавить время обновления интервалов, чтобы исключить слишком частые обращения к сайту,и сохранить это как параметр системы
+        //todo: добавить время обновления и сохранить это как параметр системы
+        /// <summary>
+        /// время последнего обновления интервалов интервалов, чтобы исключить слишком частые обращения к сайту
+        /// </summary>
+        private static DateTime LastUpdate { get; set; }
 
         static Teacher _defaultTeacher;
 
@@ -69,9 +73,15 @@ namespace UpkServices.Web
         static bool TryToGetIntervalsFromDb(out IEnumerable<WeekInterval> result, DateTime from, DateTime to)
         {
             result = null;
-            lock (UpkDatabaseContext.Instance.WeekIntervals) {
-                var first = UpkDatabaseContext.Instance.WeekIntervals.LastOrDefault(wi => wi.Start <= from);
-                var last = UpkDatabaseContext.Instance.WeekIntervals.FirstOrDefault(wi => to <= wi.End);
+            //lock (UpkDatabaseContext.Instance.WeekIntervals) {
+                var first = UpkDatabaseContext.Instance.WeekIntervals
+                    .Where(wi => wi.Start <= from)
+                    .OrderBy( wi => wi.Start)
+                    .LastOrDefault();
+                var last = UpkDatabaseContext.Instance.WeekIntervals
+                    .Where(wi => to <= wi.End)
+                    .OrderBy(wi=>wi.End)
+                    .FirstOrDefault();
                 if (first == null || last == null) {
                     return false;
                 }
@@ -80,7 +90,7 @@ namespace UpkServices.Web
                     .Where(wi => wi.Start <= to)
                     .OrderBy(wi => wi.Start)
                     .ToArray();
-            }
+            //}
             return true;
         }
         static void SaveWeekIntervalsChanges(IEnumerable<WeekInterval> weekIntervals)

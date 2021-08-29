@@ -20,13 +20,13 @@ namespace UpkServices.Web
         public const string GroupSelectionPostDataTemplate = @"id_Forma={0}&id_Fak={1}&Kurs={2}";
         public const string StudentSchedulePostDataTemplate = @"id_Forma={0}&id_Fak={1}&Kurs={2}&NamePodGrup={3}&RangeNedel={4}";
         #region parsers XPaths
-        public const string TeacherXpath = @"/html/body/table/tr[4]/td/p[6]/ul/li/ul/li/a";
+        public const string TeacherXpath = @"//table/tr/td/ul/li/ul/li/a";
         public const string GroupsXpath = @"//option";
-        public const string TeacherLessonRowXPath = @"/html[1]/body[1]/table[1]/tr[4]/td/table/tr";
-        public const string DateIntervalsXpath = @"/html[1]/body[1]/table[1]/tr[4]/td[1]/form[1]/p[3]/select[1]/option";
-        public const string DepartmentXPath = @"/html[1]/body[1]/table[1]/tr[4]/td[1]/form[1]/p[1]/select[1]/option";
-        public const string WorkDayXPath = @"/html[1]/body[1]/table[1]/tr[4]/td[1]/table[1]/tr/td[1][@colspan = 4]";
-        public const string StudentWorkDayXPath = @"/html[1]/body[1]/table[1]/tr[4]/td[1]/table[1]/tr/td[1][@colspan = 5]";
+        public const string TeacherLessonRowXPath = @"/html[1]/body[1]/table/tr[4]/td/table/tr";
+        public const string DateIntervalsXpath = @"//table/tr[3]/td[1]/form/p/select/option";
+        public const string DepartmentXPath = @"//table/tr/td/form/p/select/option";
+        public const string WorkDayXPath = @"//body//table/tr[3]/td[1]/table/tr/th[1][@colspan = 4]";
+        public const string StudentWorkDayXPath = @"//body/table/tr[3]/td[1]/table/tr/th[1][@colspan = 5]";
         #endregion
         #region regular expressions
         private static Regex TeacherRegex { get; } = new Regex(@"id_KodKaf=(\d+)");
@@ -36,7 +36,7 @@ namespace UpkServices.Web
         private static Regex TimeIntervalRegex { get; } = new Regex(@"(\d{2}\.\d{2}.\d{4}) - (\d{2}\.\d{2}.\d{4})");
         private static Regex WorkDayRegex { get; } = new Regex(@"[А-Я][а-я]+\s+\((\d{2}\.\d{2}\.\d{4})\)"); //регулярка на день недели
         private static Regex LessonNumRegex = new Regex(@"\d ");
-        private static Regex LessonNameRegex = new Regex(@"^([\w\-\s:,\.""\(\)]+)\((\w+)\)$");//вычленение названия дисциплины и ее типа из строки вида 'Название (тип)'
+        private static Regex LessonNameRegex = new Regex(@"^([\w\-\s:,\.""\(\)]+)\((\w+)\)\s*(Онлайн)?$");//вычленение названия дисциплины и ее типа из строки вида 'Название (тип)'
         private static Regex AuditoryRegex = new Regex(@"^а\.(\d+)\s+УК\s+(\d+) ");//вычленение номера аудитории и номера учебного корпуса из выражений вида а.207 УК 1; а.329 УК 1 ЗАЧЕТ 1.06; а.329 УК 1 с 12 нед.
         #endregion
         #endregion
@@ -139,7 +139,7 @@ namespace UpkServices.Web
         }
         internal static Lesson DecodeLesson(HtmlNode node)
         {
-            ParseDiscipline(node.ChildNodes[3].InnerText, out string disciplineName, out LessonType lessonType);
+            ParseDiscipline(node.ChildNodes[3].InnerText, out string disciplineName, out LessonType lessonType, out bool online);
 
             return new Lesson()
             {
@@ -148,6 +148,7 @@ namespace UpkServices.Web
                 LessonType = lessonType,
                 Group = node.ChildNodes[5].InnerText,
                 Auditory = ParseAuditory(node.ChildNodes[7].InnerText),
+                Online = online,
                 Teacher = node.ChildNodes.Count >9 ? DecodeTeacherFromShortFio( node.ChildNodes[9].InnerText) : null 
             };
         }
@@ -168,9 +169,10 @@ namespace UpkServices.Web
         /// <param name="discipline">строка в формате Название (тип)</param>
         /// <param name="disciplineName">полученное название дисциплины</param>
         /// <param name="lessonType">полученный тип занятия</param>
-        internal static void ParseDiscipline(string discipline, out string disciplineName, out LessonType lessonType)
+        internal static void ParseDiscipline(string discipline, out string disciplineName, out LessonType lessonType, out bool online)
         {
             var match = LessonNameRegex.Match(discipline);
+            online = false;
             if (match.Success) {
                 disciplineName = match.Groups[1].Value;
                 switch (match.Groups[2].Value) {
@@ -196,6 +198,9 @@ namespace UpkServices.Web
                         lessonType = LessonType.Unknown;
                         break;
                 }
+                if( match.Groups.Count == 4 && match.Groups[3].Value == "Онлайн"){
+                    online = true;
+                } 
             } else {
                 disciplineName = discipline;
                 lessonType = LessonType.Unknown;

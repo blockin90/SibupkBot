@@ -29,6 +29,7 @@ namespace TelegramClientCore
         private static void InitializeRuntime()
         {
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
+
 #if DEBUG
             Trace.Listeners.Add(new TextWriterTraceListener(Console.Out));
 #endif
@@ -68,7 +69,7 @@ namespace TelegramClientCore
                 Client = new TelegramBotClient(token, new WebProxy(proxyAddress));
             }
             long adminId = 0;
-            long.TryParse( ConfigurationManager.AppSettings.Get("AdminId"), out adminId);
+            long.TryParse(ConfigurationManager.AppSettings.Get("AdminId"), out adminId);
             StateMachineContext.AdminChatId = adminId;
 
             Client.OnMessage += Client_OnMessage;
@@ -77,7 +78,8 @@ namespace TelegramClientCore
             Client.Timeout = new TimeSpan(0, 0, 2);
             
             var actorResolver = GetActorResolver();
-            ISiteUpdateNotificator notificator = new SiteUpdatesChecker(new TimeSpan(1, 0, 0), @"http://www.sibupk.su/student/raspis/");//уведомление об изменениях на сайте
+            
+            ISiteUpdateNotificator notificator = new SiteUpdatesChecker(new TimeSpan(1, 0, 0), @"http://www.sibupk.su/students/raspis/");//уведомление об изменениях на сайте
 
             //регистрируем сервисы
             ServiceProvider.RegisterService(typeof(IMessageSender), new MessageSender(Client)); //сервис отправки 
@@ -173,7 +175,7 @@ namespace TelegramClientCore
                         Username = message.From.Username,
                         LastName = message.From.LastName,
                         FirstName = message.From.FirstName
-                    }).ContinueWith(t => { if (t.Exception != null) { Console.WriteLine(t.Exception.Message); } });
+                    }).AsTask().ContinueWith(t => { if (t.Exception != null) { Console.WriteLine(t.Exception.Message); } });
                 }
                 //записываем его текущее состояние и производимое действие
                 dbInstance.LogRecords.AddAsync(
@@ -183,7 +185,7 @@ namespace TelegramClientCore
                         CurrentState = machineContext?.CurrentState?.ToString(),
                         Message = message.Text,
                         RecordTime = DateInfo.Now
-                    }).ContinueWith(t => { if (t.Exception != null) { Console.WriteLine(t.Exception.Message); } });
+                    }).AsTask().ContinueWith(t => { if (t.Exception != null) { Console.WriteLine(t.Exception.Message); } });
                 dbInstance.SaveChangesAsync().ContinueWith(t => { if (t.Exception != null) { Console.WriteLine(t.Exception.Message); } });
             } catch (Exception e) {
                 MyTrace.WriteLine(e.Message);

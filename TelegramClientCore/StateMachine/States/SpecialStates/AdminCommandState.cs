@@ -123,7 +123,8 @@ namespace TelegramClientCore.StateMachine.States.SpecialStates
             var uniqueUserIds = BotDatabase.BotDbContext.Instance.LogRecords
                 .Where(lr => lr.RecordTime.Date == DateInfo.Today)
                 .Select(lr => lr.ChatId)
-                .Distinct();
+                .Distinct()
+                .ToArray();
             //плохой код:
             var users = BotDatabase.BotDbContext.Instance.Users.AsNoTracking().ToArray();
             var result = String.Join(
