@@ -12,6 +12,7 @@ namespace UpkModel.Database
     {
         [Key, MaxLength(100)]
         public string Key { get; set; }
+
         [Required,MaxLength(255)]
         public string Value { get; set; }
     }

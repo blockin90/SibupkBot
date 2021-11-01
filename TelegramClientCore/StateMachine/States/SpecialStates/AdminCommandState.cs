@@ -69,7 +69,7 @@ namespace TelegramClientCore.StateMachine.States.SpecialStates
         }
         private void SendBroadcastMessage(string message)
         {
-            StateMachineContext.MessageSender.SendToAll(message);
+            StateMachineContext.MessageSender.SendBroadcastMessage(message);
         }
         private void UpdateActors()
         {
@@ -137,7 +137,7 @@ namespace TelegramClientCore.StateMachine.States.SpecialStates
                     (uid, u) => u
                     )
                 .ToArray()
-                .Select((u,ind) => $"{ind+1}. {u.Username} {u.LastName} {u.FirstName}")
+                .Select((u,ind) => $"{ind+1}. {u.UserName} {u.LastName} {u.FirstName}")
             );
             StateMachineContext.SendMessageAsync(result);
         }

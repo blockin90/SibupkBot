@@ -18,7 +18,7 @@ namespace UpkModel.Database
     /// Сторона, для которой может быть загружено расписание.
     /// Например, преподаватель или группа
     /// </summary>
-    public abstract class Actor
+    public abstract class Actor 
     {
        // private string _identifierName = String.Empty;
 
@@ -36,6 +36,19 @@ namespace UpkModel.Database
             //{
              //   _identifierName = value.Trim().ToUpper();
             //}
+        }
+    }
+
+    public class ActorsEqualityComparer : IEqualityComparer<Actor>
+    {
+        public bool Equals(Actor x, Actor y)
+        {
+            return x.IdentifierName == y.IdentifierName;
+        }
+
+        public int GetHashCode(Actor obj)
+        {
+            return obj.IdentifierName.GetHashCode();
         }
     }
 }

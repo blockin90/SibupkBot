@@ -23,7 +23,7 @@
             // optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=SupkDatabase;Trusted_Connection=True;");
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
+        {            
             modelBuilder.Entity<Lesson>().HasKey(l => new { l.WorkDayId, l.LessonNum, l.Group });
             //т.к. часто идет поиск по недельным интервалам в БД, строим индексы по этим полям
             modelBuilder.Entity<WeekInterval>().HasIndex(wi => wi.Start);   

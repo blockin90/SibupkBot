@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Linq;
 using Telegram.Bot.Types;
 
 namespace TelegramClientCore.BotDatabase
@@ -8,13 +9,15 @@ namespace TelegramClientCore.BotDatabase
         protected BotDbContext()
         {
             Database.EnsureCreated();
+            
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite(@"Data Source=UserLog2.db");
+            optionsBuilder.UseSqlite(@"Data Source=UserLog2.db");            
         }
 
-        protected DbSet<ChatStateRecord> ChatStateRecords { get; set; }
+        
+
         public DbSet<LogRecord> LogRecords { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<UserConfig> UserConfigs { get; set; }
@@ -29,26 +32,28 @@ namespace TelegramClientCore.BotDatabase
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<LogRecord>().HasNoKey();
+
         }
 
         public void AddOrUpdateChatStateRecord(ChatId chatId, string stateName, string extraData = null)
         {
-            var chatState = ChatStateRecords.Find(chatId.Identifier);
-            if (chatState == null) {
-                chatState = new ChatStateRecord() { ChatId = chatId.Identifier, StateName = stateName, ExtraData = extraData };
-                ChatStateRecords.Add(chatState);
-            } else {
-                chatState.StateName = stateName;
-                chatState.ExtraData = extraData;
-                ChatStateRecords.Update(chatState);
-            }
+            var user = Users.Find(chatId.Identifier);
+            user.StateName = stateName;
+            user.ExtraData = extraData;
+            Users.Update(user);            
             SaveChangesAsync();
         }
 
-        public bool TryToGetChatStateRecord(ChatId chatId, out ChatStateRecord chatState)
+        public bool TryToGetChatStateRecord(ChatId chatId, ref string stateName, ref string extraData)
         {
-            chatState = ChatStateRecords.Find(chatId.Identifier);
-            if (chatState != null) {
+            var userInfo = Users.AsNoTracking<User>()
+                .Where(u => u.ChatId == chatId.Identifier)
+                .Select(u => new { u.StateName, u.ExtraData })
+                .FirstOrDefault();
+            if(userInfo != null) {
+                stateName = userInfo.StateName;
+                extraData = userInfo.ExtraData;
                 return true;
             }
             return false;

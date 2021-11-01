@@ -70,15 +70,17 @@ namespace TelegramClientCore.StateMachine
         private StateMachineContext CreateStateMachineContext(ChatId chatId)
         {
             StateMachineContext context = new StateMachineContext(chatId, null);
-            State state = null;
+            string stateName = null;
+            string extraData = null;
+            State state;
             //пробуем получить запись в БД для данного ид чата
             //если найдено-будем пробовать состояние исходя их сохраненной информации
-            if (BotDbContext.Instance.TryToGetChatStateRecord(chatId, out ChatStateRecord stateRecord) == false
-                 || TryToRestoreState(stateRecord, context, out state) == false) {
+            if (BotDbContext.Instance.TryToGetChatStateRecord(chatId, ref stateName, ref extraData) == false
+                || TryToRestoreState(stateName, extraData, context, out state) == false) {
                 //не удалось найти состояние, инциаилизируем как InitialState
                 //в противном случае, state содержит восстановленное состояние
                 //если не найдено, создаем новый
-                state = new States.InitialState(context);
+                state = new InitialState(context);
             }
             context.CurrentState = state;
             return context;
@@ -88,18 +90,16 @@ namespace TelegramClientCore.StateMachine
         /// <summary>
         /// Попытка восстановить состояние из записи БД
         /// </summary>
-        /// <param name="stateRecord">запись для восстановления состояния</param>
         /// <param name="context">контекст, для которого создается состояние</param>
         /// <param name="state">полученное состояние</param>
         /// <returns>true - если успешно и state содержит ненулевое значение, иначе false</returns>
-        private bool TryToRestoreState(ChatStateRecord stateRecord, StateMachineContext context, out State state)
+        private bool TryToRestoreState(string stateName, string extraData, StateMachineContext context, out State state)
         {
             state = null;
             //ExtraData должна хранить ФИО преподавателя или ShortName группы
             //пробуем по этим данным восстановить объект и добавить его как параметр в контекст
             //если попытка восстановления целого объекта провалена - возвращаем false
-            if (String.IsNullOrEmpty(stateRecord.ExtraData) == false
-                 && actorResolver.TryToGetActor(stateRecord.ExtraData, out Actor actor)) {
+            if (string.IsNullOrEmpty(extraData) == false && actorResolver.TryToGetActor(extraData, out Actor actor)) {
                 //если попали сюда, значит восстановили роль пользователя - добавляем ее как параметр в контекст
                 try {
                     if (actor is Group) {
@@ -110,7 +110,7 @@ namespace TelegramClientCore.StateMachine
                         return false;
                     }
                     //создаем состояние с заданным именем
-                    state = Activator.CreateInstance(Type.GetType(stateRecord.StateName), context) as State;
+                    state = Activator.CreateInstance(Type.GetType(stateName), context) as State;
                 } catch (Exception e) {
                     MyTrace.WriteLine(e.Message);
                     return false;
@@ -118,21 +118,21 @@ namespace TelegramClientCore.StateMachine
                 return true;
             }
             //восстанавливаем состояние без ExtraData
-            return TryToRestoreDefaultState(stateRecord, context, out state);
+            return TryToRestoreDefaultState(stateName, context, out state);
         }
 
 
         /// <summary>
         /// Попытка восстановить произвольное состояние из записи БД без ExtraData
         /// </summary>
-        /// <param name="stateRecord">запись для восстановления состояния</param>
+        /// <param name="stateName">название состояния</param>
         /// <param name="context">контекст, для которого создается состояние</param>
         /// <param name="state">полученное состояние</param>
         /// <returns>true - если успешно и state содержит ненулевое значение, иначе false</returns>
-        private static bool TryToRestoreDefaultState(ChatStateRecord stateRecord, StateMachineContext context, out State state)
+        private static bool TryToRestoreDefaultState(string stateName, StateMachineContext context, out State state)
         {
             try {
-                state = Activator.CreateInstance(Type.GetType(stateRecord.StateName), context) as State;
+                state = Activator.CreateInstance(Type.GetType(stateName), context) as State;
             } catch (Exception e) {
                 MyTrace.WriteLine(e.Message);
                 state = null;

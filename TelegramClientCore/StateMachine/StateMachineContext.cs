@@ -32,11 +32,11 @@ namespace TelegramClientCore.StateMachine
             get { return _chatId.Identifier;  }
         }
 
-        internal IMessageSender MessageSender { get; private set; }
+        internal MessageSender MessageSender { get; private set; }
 
         public StateMachineContext(ChatId chatId, State initialState)
         {
-            MessageSender = ServiceProvider.GetService<IMessageSender>();
+            MessageSender = ServiceProvider.GetService<MessageSender>();
             _chatId = chatId;
             UserConfig = UserConfigsFactory.Instance.GetUserConfigService(ChatIdentifier);
             CurrentState = initialState;
@@ -44,7 +44,7 @@ namespace TelegramClientCore.StateMachine
 
         public StateMachineContext(ChatId chatId)
         {
-            MessageSender = ServiceProvider.GetService<IMessageSender>();
+            MessageSender = ServiceProvider.GetService<MessageSender>();
             _chatId = chatId;
             UserConfig = UserConfigsFactory.Instance.GetUserConfigService(ChatIdentifier);
             CurrentState = new InitialState(this);

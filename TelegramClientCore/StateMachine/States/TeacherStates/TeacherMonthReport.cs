@@ -42,16 +42,18 @@ namespace TelegramClientCore.StateMachine.States.TeacherStates
 
         public override void SendStandardMessage()
         {
-            Task.Run(() =>
-            {
-                try {
-                    var result = GetFormattedResponse();
+            try {
+                var reportTask = Task.Run(() => GetFormattedResponse());
+                if (reportTask.Wait(TimeSpan.FromSeconds(30))) {
+                    var result = reportTask.Result;
                     StateMachineContext.SendMessageAsync(result, ReplyKeyboard, ParseMode.Html);
-                } catch (Exception e) {
-                    StateMachineContext.SendMessageAsync("Во время запроса произошла ошибка. Повторите попытку позже.", ReplyKeyboard);
-                    MyTrace.WriteLine(e.Message);
+                } else {
+                    throw new TimeoutException();
                 }
-            });
+            } catch (Exception e) {
+                StateMachineContext.SendMessageAsync("Во время запроса произошла ошибка. Повторите попытку позже.", ReplyKeyboard);
+                MyTrace.WriteLine(e.Message);
+            }
         }
 
         string GetFormattedResponse()

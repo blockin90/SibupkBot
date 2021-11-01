@@ -41,7 +41,7 @@ namespace UpkServices
         public static void RegisterService( Type serviceType, object handler)
         {
             var handlerType = handler.GetType();
-            if( handlerType.GetInterfaces().Contains(serviceType) == false) {
+            if( handlerType.GetInterfaces().Contains(serviceType) == false && handlerType != handler.GetType() ) {
                 throw new ArgumentException("handler must be derived from service interface!");
             }
             RegisteredInstances[serviceType] = handler;

@@ -8,8 +8,6 @@ namespace TelegramClientCore.BotDatabase
 {
     public class LogRecord
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
         /// <summary>
         /// Идентификатор чата
         /// </summary>
@@ -20,16 +18,16 @@ namespace TelegramClientCore.BotDatabase
         /// </summary>
         public DateTime RecordTime { get; set; }
 
-
         /// <summary>
         /// Текущее состояние чата до обработки сообщения
         /// </summary>
         [MaxLength(128)]
         public string CurrentState { get; set; }
+
         /// <summary>
         /// Сообщение-запрос пользователя
         /// </summary>
-        [MaxLength(64)]
+        [MaxLength(128)]
         public string Message { get; set; }
     }
 }

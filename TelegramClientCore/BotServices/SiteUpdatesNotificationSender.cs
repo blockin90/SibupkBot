@@ -11,17 +11,17 @@ namespace TelegramClientCore.BotServices
     class SiteUpdatesNotificationSender
     {
         ISiteUpdateNotificator _updateNotificator;
-        IMessageSender _messageSender;
+        MessageSender _messageSender;
         public SiteUpdatesNotificationSender()
         {
             _updateNotificator = ServiceProvider.GetService<ISiteUpdateNotificator>();
-            _messageSender = ServiceProvider.GetService<IMessageSender>();
+            _messageSender = ServiceProvider.GetService<MessageSender>();
             _updateNotificator.OnSiteUpdate += UpdateNotificator_OnSiteUpdate;
         }
 
         private void UpdateNotificator_OnSiteUpdate(object sender, EventArgs e)
         {
-            _messageSender.SendToAll("❗️ На сайте расписания есть изменения! Рекомендуется проверить загруженное ранее расписание.");    
+            _messageSender.SendScheduleChangingNotification("❗️ На сайте расписания есть изменения! Рекомендуется проверить загруженное ранее расписание.");    
         }
     }
 }

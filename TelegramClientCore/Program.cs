@@ -1,4 +1,6 @@
 ﻿
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System;
 using System.Configuration;
 using System.Diagnostics;
@@ -82,7 +84,7 @@ namespace TelegramClientCore
             ISiteUpdateNotificator notificator = new SiteUpdatesChecker(new TimeSpan(1, 0, 0), @"http://www.sibupk.su/students/raspis/");//уведомление об изменениях на сайте
 
             //регистрируем сервисы
-            ServiceProvider.RegisterService(typeof(IMessageSender), new MessageSender(Client)); //сервис отправки 
+            ServiceProvider.RegisterService(typeof(MessageSender), new MessageSender(Client)); //сервис отправки 
             ServiceProvider.RegisterService(typeof(IActorResolver), actorResolver);    //сервис определения типа пользователя по его имени
             ServiceProvider.RegisterService(typeof(ISiteUpdateNotificator), notificator);
 
@@ -100,7 +102,6 @@ namespace TelegramClientCore
 
         private static void Main(string[] args)
         {
-
             InitializeRuntime();
             Console.WriteLine("Starting bot...");
             InitializeBot();
@@ -172,21 +173,23 @@ namespace TelegramClientCore
                     dbInstance.Users.AddAsync(new User()
                     {
                         ChatId = message.Chat.Id,
-                        Username = message.From.Username,
+                        UserName = message.From.Username,
                         LastName = message.From.LastName,
                         FirstName = message.From.FirstName
                     }).AsTask().ContinueWith(t => { if (t.Exception != null) { Console.WriteLine(t.Exception.Message); } });
                 }
                 //записываем его текущее состояние и производимое действие
-                dbInstance.LogRecords.AddAsync(
+                dbInstance.Database.ExecuteSqlRaw("insert into LogRecords(ChatId, CurrentState, Message,RecordTime) values ({0},{1},{2},{3})",
+                    message.Chat.Id, machineContext?.CurrentState?.ToString() ?? String.Empty, message.Text, DateInfo.Now);
+                /*dbInstance.LogRecords.Add(
                     new LogRecord
                     {
                         ChatId = message.Chat.Id,
                         CurrentState = machineContext?.CurrentState?.ToString(),
                         Message = message.Text,
                         RecordTime = DateInfo.Now
-                    }).AsTask().ContinueWith(t => { if (t.Exception != null) { Console.WriteLine(t.Exception.Message); } });
-                dbInstance.SaveChangesAsync().ContinueWith(t => { if (t.Exception != null) { Console.WriteLine(t.Exception.Message); } });
+                    });
+                dbInstance.SaveChanges(true);*/
             } catch (Exception e) {
                 MyTrace.WriteLine(e.Message);
             }

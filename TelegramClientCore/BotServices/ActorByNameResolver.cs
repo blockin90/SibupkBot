@@ -33,7 +33,7 @@ namespace TelegramClientCore.BotServices
             /* формируем словарь с ключом - первой буквой фио преподавателя или названия группы
              * затем для этого ключа формируем сортированный список по заданному идентификатору
              */
-            _availableActors = actors.GroupBy(a => a.IdentifierName.Substring(0,1).ToUpper()[0])
+            _availableActors = actors.Distinct(new ActorsEqualityComparer()).GroupBy(a => a.IdentifierName.Substring(0,1).ToUpper()[0])
                 .ToDictionary(group => group.Key, 
                             group => new SortedList<string, Actor>( group.ToDictionary( g=> g.IdentifierName.ToUpper())));
         }

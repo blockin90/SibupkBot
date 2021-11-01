@@ -49,15 +49,26 @@ namespace TelegramClientCore.StateMachine.States
         public override void SendStandardMessage()
         {
             try {
-                var result = GetSchedule().Result;
-                if (string.IsNullOrEmpty(result)) {
-                    string dateInterval = firstDate.ToString("dd.MM") +
-                        (firstDate == lastDate ? "" : " - " + lastDate.ToString("dd.MM"));
-                    result = $"<b>{GetMessageHeader()}  на {dateInterval} отсутсвует</b>";
-                } else {
-                    result = GetMessageHeader() + Environment.NewLine + result;
+                var scheduleTask = Task.Run( ()=>GetSchedule());
+                if (scheduleTask.Wait(TimeSpan.FromSeconds(10)))
+                {
+                    var result = scheduleTask.Result;
+                    if (string.IsNullOrEmpty(result))
+                    {
+                        string dateInterval = firstDate.ToString("dd.MM") +
+                            (firstDate == lastDate ? "" : " - " + lastDate.ToString("dd.MM"));
+                        result = $"<b>{GetMessageHeader()}  на {dateInterval} отсутсвует</b>";
+                    }
+                    else
+                    {
+                        result = GetMessageHeader() + Environment.NewLine + result;
+                    }
+                    StateMachineContext.SendMessageAsync(result, ReplyKeyboard, ParseMode.Html);
                 }
-                StateMachineContext.SendMessageAsync(result, ReplyKeyboard, ParseMode.Html);
+                else
+                {
+                    throw new TimeoutException();
+                }
             } catch (Exception exception) {
                 MyTrace.WriteLine($"user id = {StateMachineContext.ChatIdentifier}, error message: {exception.Message}");
                 StateMachineContext.SendMessageAsync("Во время запроса произошла ошибка. Повторите попытку позже.", ReplyKeyboard);
