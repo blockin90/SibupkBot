@@ -1,5 +1,6 @@
 ﻿using System;
 using UpkModel.Database;
+using UpkModel.Database.Schedule;
 
 namespace UpkServices
 {

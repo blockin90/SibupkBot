@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace UpkModel.Database
+namespace UpkModel.Database.Schedule
 {
     /// <summary>
     /// преподаватель

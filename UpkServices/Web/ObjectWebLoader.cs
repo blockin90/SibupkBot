@@ -7,6 +7,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using UpkModel;
+using UpkModel.Database.Schedule;
 
 namespace UpkServices.Web
 {
@@ -24,7 +25,7 @@ namespace UpkServices.Web
                 if (String.IsNullOrEmpty(postParameters)) {
                     throw new ArgumentException("by loading work days post parameters must not be empty ");
                 }
-                result = Load<StudentWorkDay>(
+                result = Load(
                     HtmlNodeParsers.DecodeStudentWorkDay,
                     HtmlNodeParsers.StudentBaseUrl + "&" + postParameters,
                     HtmlNodeParsers.StudentWorkDayXPath,
@@ -47,11 +48,11 @@ namespace UpkServices.Web
                     HtmlNodeParsers.TeacherBaseUrl + "&" + postParameters,
                     HtmlNodeParsers.DateIntervalsXpath,
                     string.Empty);
-            } else if( type == typeof(UpkModel.Database.Group)) {
+            } else if( type == typeof(UpkModel.Database.Schedule.Group)) {
                 if (String.IsNullOrEmpty(postParameters)) {
                     throw new ArgumentException("by loading groups post parameters must not be empty ");
                 }
-                result = Load<UpkModel.Database.Group>(
+                result = Load<UpkModel.Database.Schedule.Group>(
                     HtmlNodeParsers.DecodeGroup,
                     HtmlNodeParsers.StudentBaseUrl,
                     HtmlNodeParsers.GroupsXpath,

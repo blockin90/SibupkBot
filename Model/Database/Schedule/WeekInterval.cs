@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace UpkModel.Database
+namespace UpkModel.Database.Schedule
 {
     /// <summary>
     /// Интервал дат из понедельного вывода с сайта сибупк

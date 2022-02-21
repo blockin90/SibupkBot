@@ -1,5 +1,6 @@
 ﻿using System;
 using Telegram.Bot.Types.ReplyMarkups;
+using UpkModel.Database.Schedule;
 
 namespace TelegramClientCore.StateMachine.States
 {

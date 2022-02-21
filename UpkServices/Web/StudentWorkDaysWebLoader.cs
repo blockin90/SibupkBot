@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using UpkModel.Database;
+using UpkModel.Database.Schedule;
 
 namespace UpkServices.Web
 {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace UpkModel.Database
+namespace UpkModel.Database.Schedule
 {
     /// <summary>
     /// Класс для настроек в формате ключ-значение

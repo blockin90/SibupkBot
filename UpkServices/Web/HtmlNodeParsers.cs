@@ -1,8 +1,10 @@
 ﻿using HtmlAgilityPack;
 using System;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using UpkModel;
 using UpkModel.Database;
+using UpkModel.Database.Schedule;
 
 namespace UpkServices.Web
 {
@@ -48,12 +50,12 @@ namespace UpkServices.Web
             }
             return null;
         }
-        public static UpkModel.Database.Group DecodeGroup(HtmlNode node)
+        public static UpkModel.Database.Schedule.Group DecodeGroup(HtmlNode node)
         {
             //после точки - любой символ кроме скобок и пробелам
             Match m = GroupRegex.Match(node.InnerText);
             if (m.Success) {
-                var group = new UpkModel.Database.Group()
+                var group = new UpkModel.Database.Schedule.Group()
                 {
                     ShortName = m.Value.TrimEnd(),
                     NamePodGrup = node.InnerText
@@ -74,16 +76,26 @@ namespace UpkServices.Web
             }
             return null;
         }
-        public static Teacher DecodeTeacherFromShortFio(string text)
+
+        //public static Teacher DecodeTeacherFromShortFio(string text)
+        //{
+        //    var match = TeacherShortFioRegex.Match(text);
+        //    string fio;
+        //    if (match.Success) {
+        //        fio = match.Value;
+        //    } else {
+        //        fio = text;
+        //    }
+        //    return new Teacher { ShortFio = fio, FIO = fio };
+        //}
+        public static string DecodeTeacherFromShortFio(string text)
         {
             var match = TeacherShortFioRegex.Match(text);
-            string fio;
             if ( match.Success) {
-                fio = match.Value;
+                return match.Value;
             } else {
-                fio = text;
+                return text;
             }
-            return new Teacher { ShortFio = fio, FIO = fio };
         }
         public static WeekInterval DecodeTimeInterval(HtmlNode node)
         {
@@ -102,13 +114,14 @@ namespace UpkServices.Web
         {
             Match m = WorkDayRegex.Match(node.InnerText);
             if (m.Success) {
-                var workDay = new WorkDay() { Date = DateTime.Parse(m.Groups[1].Value) };
+                var date = DateTime.Parse(m.Groups[1].Value);
+                var workDay = new WorkDay(date);
                 /*далее выбираем все строки расписания, пока не встретим строку с одним или двумя столбцами 
                  * (строки со след. датой или указанием четности недели), либо не дойдем до конца (NextSibling==null)*/
                 HtmlNode current = node.ParentNode?.NextSibling;
                 while (current != null && current.ChildNodes.Count >= 4) {
                     Lesson l = DecodeLesson(current);
-                    l.WorkDay = workDay;
+                    l.Date = date;
                     workDay.Lessons.Add(l);
                     current = current.NextSibling;
                 }
@@ -120,7 +133,8 @@ namespace UpkServices.Web
         {
             Match m = WorkDayRegex.Match(node.InnerText);
             if (m.Success) {
-                var workDay = new StudentWorkDay() { Date = DateTime.Parse(m.Groups[1].Value) };
+                var date = DateTime.Parse(m.Groups[1].Value);
+                var workDay = new StudentWorkDay( date );
                 /*далее выбираем все строки расписания, пока не встретим строку с одним или двумя столбцами 
                  * (строки со след. датой или указанием четности недели), либо не дойдем до конца (NextSibling==null)*/
                 HtmlNode current = node.ParentNode?.NextSibling;
@@ -129,7 +143,7 @@ namespace UpkServices.Web
                     if (l.Discipline == "День самостоятельной работы") {
                         return null;
                     }
-                    l.WorkDay = workDay;
+                    l.Date = date;
                     workDay.Lessons.Add(l);
                     current = current.NextSibling;
                 }
@@ -149,7 +163,7 @@ namespace UpkServices.Web
                 Group = node.ChildNodes[5].InnerText,
                 Auditory = ParseAuditory(node.ChildNodes[7].InnerText),
                 Online = online,
-                Teacher = node.ChildNodes.Count >9 ? DecodeTeacherFromShortFio( node.ChildNodes[9].InnerText) : null 
+                TeacherName = node.ChildNodes.Count >9 ? DecodeTeacherFromShortFio( node.ChildNodes[9].InnerText) : null 
             };
         }
         internal static string ParseAuditory(string rawAuditory)

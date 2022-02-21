@@ -8,6 +8,7 @@ using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types.ReplyMarkups;
 using UpkModel;
 using UpkModel.Database;
+using UpkModel.Database.Schedule;
 using UpkServices;
 
 namespace TelegramClientCore.StateMachine.States.TeacherStates
@@ -35,10 +36,10 @@ namespace TelegramClientCore.StateMachine.States.TeacherStates
             return new TeacherSelectAction(StateMachineContext);
         }
 
-        protected override IDataLoader<WorkDay> GetDataLoader()
+        protected override IEnumerable<WorkDay> GetSchedule(DateTime from, DateTime to)
         {
-            TeacherWorkDaysLoaderFactory loaderFactory = new TeacherWorkDaysLoaderFactory(UpkDatabaseContext.Instance, Configs.Instance);
-            return loaderFactory.GetLoader(Teacher, firstDate, lastDate);
+            TeacherWorkDaysLoaderFactory loaderFactory = new TeacherWorkDaysLoaderFactory(UpkDatabaseContext.Instance);
+            return loaderFactory.GetLoader(Teacher, firstDate, lastDate).Load();
         }
 
         protected override string GetMessageHeader()

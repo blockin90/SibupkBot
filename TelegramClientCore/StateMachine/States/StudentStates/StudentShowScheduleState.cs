@@ -4,9 +4,10 @@ using System.Text;
 using System.Threading.Tasks;
 using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types.ReplyMarkups;
-using TelegramClientCore.BotCacheDatabase;
+using TelegramClientCore.BotCache;
 using UpkModel;
 using UpkModel.Database;
+using UpkModel.Database.Schedule;
 using UpkServices;
 
 namespace TelegramClientCore.StateMachine.States.StudentStates
@@ -31,9 +32,9 @@ namespace TelegramClientCore.StateMachine.States.StudentStates
             return new InitialState(StateMachineContext);
         }
 
-        protected override IDataLoader<WorkDay> GetDataLoader()
+        protected override IEnumerable<WorkDay> GetSchedule(DateTime from,DateTime to)
         {
-            return new CachedDataLoader(StateMachineContext.GetStudentWorkDays(Group, firstDate, lastDate));
+            return GroupScheduleCache.Instance.GetWorkDays(Group, from, to);
         }
 
         protected override string GetMessageHeader()

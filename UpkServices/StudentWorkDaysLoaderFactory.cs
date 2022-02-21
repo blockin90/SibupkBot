@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using UpkModel.Database;
+using UpkModel.Database.Schedule;
 using UpkServices.Web;
 
 namespace UpkServices
@@ -9,9 +8,9 @@ namespace UpkServices
     public class StudentWorkDaysLoaderFactory
     {
         private readonly UpkDatabaseContext _database;
-        private readonly Configs _configs;
+        private readonly Settings _configs;
 
-        public StudentWorkDaysLoaderFactory(UpkDatabaseContext database, Configs configs)
+        public StudentWorkDaysLoaderFactory(UpkDatabaseContext database, Settings configs)
         {
             _database = database;
             _configs = configs;

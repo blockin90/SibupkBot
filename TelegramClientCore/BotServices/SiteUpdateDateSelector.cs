@@ -39,7 +39,7 @@ namespace TelegramClientCore.BotServices
                         return match.Value;
                     }
                 } catch (Exception e){
-                    MyTrace.WriteLine(e.Message);
+                    MyTrace.WriteLine(e.GetFullMessage());
                     Thread.Sleep(1000);
                     continue;
                 }

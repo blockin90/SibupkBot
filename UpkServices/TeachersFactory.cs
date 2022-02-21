@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UpkModel.Database;
+using UpkModel.Database.Schedule;
 using UpkServices.Web;
 
 namespace UpkServices
@@ -16,12 +17,10 @@ namespace UpkServices
     public class TeachersFactory
     {
         private readonly UpkDatabaseContext _database;
-        private readonly Configs _configs;
 
-        public TeachersFactory( UpkDatabaseContext database, Configs configs)
+        public TeachersFactory( UpkDatabaseContext database)
         {
             _database = database;
-            _configs = configs;
         }
         /// <summary>
         /// Загрузка списка преподавателей, если возможно - из локальной БД, иначе - с сайта СибУПК
@@ -48,9 +47,9 @@ namespace UpkServices
         private void LoadFromWeb()
         {
             //перед загрузкой преподавателей необходимо загрузить список кафедр
-            var loader = new RepeatableObjectWebLoader(_configs.MaxAttempts, _configs.SleepInterval);
+            var loader = new RepeatableObjectWebLoader(Settings.MaxAttempts, Settings.RetryInterval);
             var departments = loader.Load<Department>();
-            var teachers = new RepeatableObjectWebLoader(_configs.MaxAttempts, _configs.SleepInterval).Load<Teacher>();
+            var teachers = new RepeatableObjectWebLoader(Settings.MaxAttempts, Settings.RetryInterval).Load<Teacher>();
             /* на сайте могут не совпадать id кафедр из списка преподавателей со списком кафедр,
              * поэтому для таких кафедр формируем фиктивное название */
             var deptsId = departments.Select(d => d.Id);

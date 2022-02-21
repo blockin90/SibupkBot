@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using TelegramClientCore.BotDatabase;
 using TelegramClientCore.BotServices;
+using UpkModel.Database.Users;
 
 namespace TelegramClientCore
 {

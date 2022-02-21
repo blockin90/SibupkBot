@@ -4,6 +4,7 @@ using System.Linq;
 using Telegram.Bot.Types.ReplyMarkups;
 using TelegramClientCore.BotServices;
 using UpkModel.Database;
+using UpkModel.Database.Schedule;
 using UpkServices;
 
 namespace TelegramClientCore.StateMachine.States

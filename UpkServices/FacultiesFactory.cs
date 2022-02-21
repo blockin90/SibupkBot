@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UpkModel.Database;
+using UpkModel.Database.Schedule;
 using UpkServices.Web;
 
 namespace UpkServices
@@ -15,13 +16,11 @@ namespace UpkServices
     /// </summary>
     class FacultiesFactory
     {
-        private readonly UpkDatabaseContext _database;
-        private readonly Configs _configs;
+        private readonly UpkDatabaseContext _database;       
 
-        public FacultiesFactory(UpkDatabaseContext database, Configs configs)
+        public FacultiesFactory(UpkDatabaseContext database)
         {
             _database = database;
-            _configs = configs;
         }
         /// <summary>
         /// Загрузка списка факультетов, если возможно - из локальной БД, иначе - с сайта СибУПК
@@ -48,9 +47,9 @@ namespace UpkServices
         private void LoadFromWeb()
         {
             //перед загрузкой преподавателей необходимо загрузить список кафедр
-            var loader = new RepeatableObjectWebLoader(_configs.MaxAttempts, _configs.SleepInterval);
+            var loader = new RepeatableObjectWebLoader(Settings.MaxAttempts, Settings.RetryInterval);
             var departments = loader.Load<Department>();
-            var teachers = new RepeatableObjectWebLoader(_configs.MaxAttempts, _configs.SleepInterval).Load<Teacher>();
+            var teachers = new RepeatableObjectWebLoader(Settings.MaxAttempts, Settings.RetryInterval).Load<Teacher>();
             teachers = teachers.Join(departments, t => t.DepartmentId, d => d.Id, (t, d) => { t.Department = d; return t; });
             SaveTeachersChanges(teachers);
             //return teachers.OrderBy(t => t.FIO).ToArray();

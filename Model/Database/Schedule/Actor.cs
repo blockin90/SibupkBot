@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
-namespace UpkModel.Database
+namespace UpkModel.Database.Schedule
 {
     public class ActorComparer : IComparer<Actor>
     {

@@ -14,6 +14,10 @@ namespace UpkServices.Web
     {
         /// <summary> кодировка, используемая при чтении страниц сайта</summary>
         public static Encoding DefaultEncoding { get; set; } = Encoding.GetEncoding(1251);
+        /// <summary>
+        /// Величина таймаута выполнения запроса в миллисекундах
+        /// </summary>
+        public static int Timeout { get; set; } = 10000;
 
         public static string SendWebRequest(string url, string postData = "")
         {
@@ -28,6 +32,7 @@ namespace UpkServices.Web
         private static WebRequest MakeWebRequest(string url, string postData )
         {
             WebRequest request = WebRequest.CreateHttp(url);
+            request.Timeout = Timeout;
             if (postData != null) {
                 WritePostDataToWebRequest(request, postData);
             }

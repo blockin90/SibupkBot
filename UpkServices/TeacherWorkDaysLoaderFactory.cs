@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using UpkModel.Database;
+using UpkModel.Database.Schedule;
 using UpkServices.Web;
 
 namespace UpkServices
@@ -16,12 +17,10 @@ namespace UpkServices
     public class TeacherWorkDaysLoaderFactory
     {
         private readonly UpkDatabaseContext _database;
-        private readonly Configs _configs;
 
-        public TeacherWorkDaysLoaderFactory(UpkDatabaseContext database, Configs configs)
+        public TeacherWorkDaysLoaderFactory(UpkDatabaseContext database)
         {
             _database = database;
-            _configs = configs;
         }
 
         /// <summary>

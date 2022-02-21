@@ -9,6 +9,7 @@ using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types.ReplyMarkups;
 using UpkModel;
 using UpkModel.Database;
+using UpkModel.Database.Schedule;
 using UpkServices;
 
 namespace TelegramClientCore.StateMachine.States.TeacherStates
@@ -44,7 +45,7 @@ namespace TelegramClientCore.StateMachine.States.TeacherStates
         {
             try {
                 var reportTask = Task.Run(() => GetFormattedResponse());
-                if (reportTask.Wait(TimeSpan.FromSeconds(30))) {
+                if (reportTask.Wait(Settings.ReportRequestTimeOut)) {
                     var result = reportTask.Result;
                     StateMachineContext.SendMessageAsync(result, ReplyKeyboard, ParseMode.Html);
                 } else {
@@ -52,7 +53,7 @@ namespace TelegramClientCore.StateMachine.States.TeacherStates
                 }
             } catch (Exception e) {
                 StateMachineContext.SendMessageAsync("Во время запроса произошла ошибка. Повторите попытку позже.", ReplyKeyboard);
-                MyTrace.WriteLine(e.Message);
+                MyTrace.WriteLine(e.GetFullMessage());
             }
         }
 
@@ -78,7 +79,7 @@ namespace TelegramClientCore.StateMachine.States.TeacherStates
         /// <returns></returns>
         IEnumerable<Lesson> GetLessons()
         {
-            var loaderFactory = new TeacherWorkDaysLoaderFactory(UpkDatabaseContext.Instance, Configs.Instance);
+            var loaderFactory = new TeacherWorkDaysLoaderFactory(UpkDatabaseContext.Instance);
             GetDateIntervalFromMonth(_monthNum, out DateTime firstDate, out DateTime lastDate);
             var loader = loaderFactory.GetLoader(Teacher, firstDate, lastDate);
             return loader.Load().SelectMany(wd => wd.Lessons).ToArray();

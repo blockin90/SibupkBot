@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using UpkModel.Database;
+using UpkModel.Database.Schedule;
 
 namespace UpkServices.Reports
 {

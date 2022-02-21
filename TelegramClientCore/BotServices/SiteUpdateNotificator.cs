@@ -9,19 +9,19 @@ namespace TelegramClientCore.BotServices
     /// <summary>
     /// Класс, проверяющий сайт на наличие обновлений со страницы 
     /// </summary>
-    internal class SiteUpdatesChecker : ISiteUpdateNotificator, IDisposable
+    internal class SiteUpdateNotificator : ISiteUpdateNotificator, IDisposable
     {
         private string _lastSiteUpdateDate;
         private readonly TimeSpan _sleepInterval;
         private readonly string _siteUrl;
 
         public event EventHandler<EventArgs> OnSiteUpdate;
-
+        CancellationToken _cancellationToken;
         private Task _task;
 
         private void Run()
         {
-            while (true) {
+            while ( !_cancellationToken.IsCancellationRequested) {
                 Thread.Sleep(_sleepInterval);
                 DateTime currentTime = DateInfo.Now;
                 if( currentTime.Hour >= 23 || currentTime.Hour < 7) {
@@ -33,7 +33,7 @@ namespace TelegramClientCore.BotServices
                     MyTrace.WriteLine("Загрузка даты обновления сайта");
                     newDate = SiteUpdateDateSelector.GetUpdateDate(_siteUrl);
                 } catch (Exception e) {
-                    MyTrace.WriteLine(e.Message);
+                    MyTrace.WriteLine(e.GetFullMessage());
                     continue;
                 }
                 //если дата последнего обновления еще не установлена, устанавливаем
@@ -47,12 +47,15 @@ namespace TelegramClientCore.BotServices
             }
         }
 
-        public SiteUpdatesChecker(TimeSpan sleepInterval, string siteUrl)
+        public SiteUpdateNotificator(TimeSpan sleepInterval, string siteUrl)
         {
             _task = Task.Run(() => Run());
             _sleepInterval = sleepInterval;
             _siteUrl = siteUrl;
         }
+
+
+
 
         #region IDisposable Support
         private bool disposedValue = false; // Для определения избыточных вызовов

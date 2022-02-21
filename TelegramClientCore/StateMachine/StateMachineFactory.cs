@@ -6,6 +6,7 @@ using TelegramClientCore.BotDatabase;
 using TelegramClientCore.BotServices;
 using TelegramClientCore.StateMachine.States;
 using UpkModel.Database;
+using UpkModel.Database.Schedule;
 using UpkServices;
 
 namespace TelegramClientCore.StateMachine
@@ -33,7 +34,7 @@ namespace TelegramClientCore.StateMachine
                 connectedUsers.TryAdd(chatId.Identifier, machineContext);
                 return machineContext;
             } catch (Exception ex) {
-                MyTrace.WriteLine(ex.Message);
+                MyTrace.WriteLine(ex.GetFullMessage());
                 throw;
             }
         }
@@ -55,7 +56,7 @@ namespace TelegramClientCore.StateMachine
                 connectedUsers.TryAdd(chatId.Identifier, context);
                 return context;
             } catch (Exception ex) {
-                MyTrace.WriteLine(ex.Message);
+                MyTrace.WriteLine(ex.GetFullMessage());
                 throw;
             }
         }
@@ -112,7 +113,7 @@ namespace TelegramClientCore.StateMachine
                     //создаем состояние с заданным именем
                     state = Activator.CreateInstance(Type.GetType(stateName), context) as State;
                 } catch (Exception e) {
-                    MyTrace.WriteLine(e.Message);
+                    MyTrace.WriteLine(e.GetFullMessage());
                     return false;
                 }
                 return true;
@@ -134,7 +135,7 @@ namespace TelegramClientCore.StateMachine
             try {
                 state = Activator.CreateInstance(Type.GetType(stateName), context) as State;
             } catch (Exception e) {
-                MyTrace.WriteLine(e.Message);
+                MyTrace.WriteLine(e.GetFullMessage());
                 state = null;
                 return false;
             }

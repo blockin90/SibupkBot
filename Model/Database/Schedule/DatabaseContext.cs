@@ -1,4 +1,4 @@
-﻿namespace UpkModel.Database
+﻿namespace UpkModel.Database.Schedule
 {
     using Microsoft.EntityFrameworkCore;
     using System;
@@ -8,23 +8,17 @@
     public class UpkDatabaseContext : DbContext
     {
         protected UpkDatabaseContext()
-        {
-            //Database.EnsureDeleted();
-            Database.EnsureCreated();
-            if( !Configs.Any() ) {
-                Configs.Add(new Config() { Key = "TeacherFirstDate", Value = DateTime.Today.ToShortDateString() });
-                Configs.Add(new Config() { Key = "TeacherLastDate", Value = DateTime.Today.AddDays(10).ToShortDateString() });
-                //инициализируем базу данных
-            }
+        {            
+            Database.EnsureCreated();            
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlite(@"Data Source=UPK.db");
-            // optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=SupkDatabase;Trusted_Connection=True;");
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {            
-            modelBuilder.Entity<Lesson>().HasKey(l => new { l.WorkDayId, l.LessonNum, l.Group });
+            modelBuilder.Entity<Lesson>().HasKey(l => new { l.Date, l.LessonNum, l.Group });
+            modelBuilder.Entity<Lesson>().HasIndex(l => l.Date);
             //т.к. часто идет поиск по недельным интервалам в БД, строим индексы по этим полям
             modelBuilder.Entity<WeekInterval>().HasIndex(wi => wi.Start);   
             modelBuilder.Entity<WeekInterval>().HasIndex(wi => wi.End);
@@ -32,7 +26,6 @@
             modelBuilder.Entity<Teacher>().HasIndex(t => t.FIO);
             //индекс по сокращенному названию группы, по которому будем производить поиск
             modelBuilder.Entity<Group>().HasIndex(t => t.ShortName );
-            //modelBuilder.Entity<Teacher>().HasKey(t => new { t.FIO, t.id_KodKaf });
         }
         
         public virtual DbSet<Lesson> Lessons { get; set; }
@@ -40,7 +33,6 @@
         public virtual DbSet<Teacher> Teachers { get; set; }
         public virtual DbSet<Config> Configs { get; set; }
         public virtual DbSet<WeekInterval> WeekIntervals { get; set; }
-        public virtual DbSet<WorkDay> WorkDays { get; set; }
         public virtual DbSet<Faculty> Faculties { get; set; }
         public virtual DbSet<Group> Groups { get; set; }
 

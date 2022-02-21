@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using UpkModel.Database;
+using UpkModel.Database.Schedule;
 using UpkServices.Web;
 
 namespace UpkServices
@@ -15,12 +16,10 @@ namespace UpkServices
     public class GroupsFactory
     {
         private readonly UpkDatabaseContext _database;
-        private readonly Configs _configs;
 
-        public GroupsFactory(UpkDatabaseContext database, Configs configs)
+        public GroupsFactory(UpkDatabaseContext database)
         {
             _database = database;
-            _configs = configs;
         }
         /// <summary>
         /// Загрузка списка групп, если возможно - из локальной БД, иначе - с сайта СибУПК

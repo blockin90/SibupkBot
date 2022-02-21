@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using UpkModel.Database;
+using UpkModel.Database.Schedule;
 
 namespace UpkServices.Web
 {

@@ -8,6 +8,7 @@ using TelegramClientCore.BotServices;
 using TelegramClientCore.StateMachine.States;
 using TelegramClientCore.StateMachine.States.SpecialStates;
 using UpkModel.Database;
+using UpkModel.Database.Schedule;
 using UpkServices;
 
 namespace TelegramClientCore.StateMachine
@@ -20,8 +21,7 @@ namespace TelegramClientCore.StateMachine
         public static long AdminChatId { get; set; }
 
         private readonly ChatId _chatId;
-
-        private CachedGroupScheduleLoader groupScheduleLoader { get => CachedGroupScheduleLoader.Instance; }
+                
         public Dictionary<string, object> Parameters { get; } = new Dictionary<string, object>();
         public IUserConfigService UserConfig { get; }
 
@@ -55,18 +55,12 @@ namespace TelegramClientCore.StateMachine
             MessageSender.SendAsync(_chatId, message, keyboard, parseMode);
         }
 
-        public IEnumerable<WorkDay> GetStudentWorkDays(Group group, DateTime from, DateTime to)
-        {
-            return groupScheduleLoader.GetWorkDays(group, from, to);
-        }
-
         public void ChangeState(State newState)
         {
             CurrentState = newState;
             CurrentState.SendStandardMessage();
             SaveCurrentState();
         }
-
 
         public void OnMessageReceive(string message)
         {
@@ -82,8 +76,6 @@ namespace TelegramClientCore.StateMachine
                 CurrentState.OnMessageReceive(message);
             }
         }
-
-
 
         /// <summary>
         /// Сохранение текущего состояния для возможности восстановления работы в случае сбоя.

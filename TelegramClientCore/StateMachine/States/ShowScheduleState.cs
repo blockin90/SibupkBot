@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types.ReplyMarkups;
 using UpkModel.Database;
+using UpkModel.Database.Schedule;
 using UpkServices;
 
 namespace TelegramClientCore.StateMachine.States
@@ -36,7 +38,7 @@ namespace TelegramClientCore.StateMachine.States
                  * оно переводим автомат в возвращенное состояние ShowScheduleState для новой выбранной даты,
                  * иначе переводим автомат в SelectDates до того момента, как пользователь 
                  * введет правильную дату*/
-                var dateState = GetDateSelectionState();
+                var dateState = GetDateSelectionState();                
                 if (dateState.TryToGetShowScheduleState(message, out State newState)) {
                     StateMachineContext.ChangeState(newState);
                 } else {
@@ -49,8 +51,9 @@ namespace TelegramClientCore.StateMachine.States
         public override void SendStandardMessage()
         {
             try {
-                var scheduleTask = Task.Run( ()=>GetSchedule());
-                if (scheduleTask.Wait(TimeSpan.FromSeconds(10)))
+                var scheduleTask = Task.Run( ()=>GetSchedule());                
+                
+                if (scheduleTask.Wait(Settings.ScheduleRequestTimeOut))
                 {
                     var result = scheduleTask.Result;
                     if (string.IsNullOrEmpty(result))
@@ -70,45 +73,15 @@ namespace TelegramClientCore.StateMachine.States
                     throw new TimeoutException();
                 }
             } catch (Exception exception) {
-                MyTrace.WriteLine($"user id = {StateMachineContext.ChatIdentifier}, error message: {exception.Message}");
+                MyTrace.WriteLine($"user id = {StateMachineContext.ChatIdentifier}, error message: {exception.GetFullMessage()}");
                 StateMachineContext.SendMessageAsync("Во время запроса произошла ошибка. Повторите попытку позже.", ReplyKeyboard);
             }
-        }
-
-        /// <summary>
-        /// Добавляет дни без пар к загруженному расписанию
-        /// </summary>
-        private IEnumerable<WorkDay> AddHolidays(IEnumerable<WorkDay> workDays)
-        {
-            int daysCount = (lastDate - firstDate).Days + 1;
-            if (workDays.Count() == daysCount) {//последовательность не содержит пробелов
-                return workDays;
-            }
-            WorkDay[] result = new WorkDay[daysCount];
-            int position = 0;
-            DateTime date = firstDate;
-            IEnumerator<WorkDay> wdEnumerator = workDays.GetEnumerator();
-            while (position < daysCount) {
-                if (wdEnumerator.MoveNext() == false) {
-                    break;
-                }
-                DateTime wdDate = wdEnumerator.Current.Date;
-                if (wdDate > date) {
-                    FillEmptyDays(result, ref position, date, (wdDate - date).Days);
-                }
-                result[position++] = wdEnumerator.Current;
-                date = wdDate.AddDays(1);
-            }
-            //сюда попадаем, если перечислитель при вызове Move вернул false, 
-            //т.е. коллекция закончилась - добиваем просто датами
-            FillEmptyDays(result, ref position, date, daysCount - position);
-            return result;
         }
 
         private void FillEmptyDays(WorkDay[] days, ref int position, DateTime from, int daysCount)
         {
             for (int i = 0; i < daysCount; ++i) {
-                days[position++] = new WorkDay() { Date = from.AddDays(i) };
+                days[position++] = new WorkDay( from.AddDays(i));
             }
         }
 
@@ -118,11 +91,11 @@ namespace TelegramClientCore.StateMachine.States
         /// <returns>строка, содержащая расписания на указанный период</returns>
         private async Task<string> GetSchedule()
         {
-            var result = await GetDataLoader().LoadAsync();
-            if (StateMachineContext.UserConfig.HolidaysVisibility) {    //включена опция показа выходных дней?
-                result = AddHolidays(result);
+            var result = await Task.Run( ()=> GetSchedule(firstDate,lastDate));            
+            if(result == null) {
+                return string.Empty;
             }
-            return String.Join($"{Environment.NewLine}{Environment.NewLine}", GetScheduleAsStrings(result));
+            return string.Join($"{Environment.NewLine}{Environment.NewLine}", GetScheduleAsStrings(result));
         }
 
         /// <summary>
@@ -133,7 +106,11 @@ namespace TelegramClientCore.StateMachine.States
         {
             foreach (var wd in workDays) {
                 if (wd.Lessons.Count == 0) {
-                    yield return $"📒 <b> {wd.Date.ToString("dd.MM.yyyy - ddd")} — выходной</b>";
+                    if (StateMachineContext.UserConfig.HolidaysVisibility) {
+                        yield return $"📒 <b> {wd.Date.ToString("dd.MM.yyyy - ddd")} — выходной</b>";
+                    } else {
+                        continue;
+                    }
                 } else {
                     StringBuilder sb = new StringBuilder();
                     sb.Append($"📒 <b>{wd.Date.ToString("dd.MM.yyyy - ddd")}</b>{Environment.NewLine}{Environment.NewLine}");
@@ -164,7 +141,7 @@ namespace TelegramClientCore.StateMachine.States
         /// <summary>
         /// Получение загрузчка расписания для данной категории пользователей
         /// </summary>
-        protected abstract IDataLoader<WorkDay> GetDataLoader();
+        protected abstract IEnumerable<WorkDay> GetSchedule(DateTime from, DateTime to);
         /// <summary>
         /// Форматирование вывода занятий, определение перечня выводимых полей для данной категории пользователей 
         /// </summary>

@@ -3,19 +3,17 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace UpkModel.Database
+namespace UpkModel.Database.Schedule
 {
     /// <summary>
-    /// Факультет
+    /// Кафедра
     /// </summary>
-    public class Faculty
+    public class Department
     {
         public int Id { get; set; }
-
-        /// <summary>
-        /// Название факультета
-        /// </summary>
-        [Required, MaxLength(200)]
+        [Required,MaxLength(50)]
         public string Name { get; set; }
+
+        public virtual ICollection<Teacher> Teachers { get; set; }
     }
 }

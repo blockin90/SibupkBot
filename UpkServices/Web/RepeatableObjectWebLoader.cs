@@ -25,15 +25,19 @@ namespace UpkServices.Web
                 try {
                     return ObjectWebLoader.Load<T>(postData);
                 } catch (NotImplementedException nex) {
-                    MyTrace.WriteLine(nex.Message);
+                    LogException(nex, typeof(T), postData);
                     throw;
                 } catch (System.Exception e) {
-                    MyTrace.WriteLine(e.Message);
+                    LogException(e, typeof(T), postData);                    
                     Thread.Sleep(_sleepInterval);
                     continue;
                 }
             }
             throw new TimeoutException("Время ожидания загрузки истекло, повторите попытку позже");
+        }
+        private static void LogException( Exception exception, Type type, string postData)
+        {
+            MyTrace.WriteLine($"{exception.GetFullMessage()}{Environment.NewLine}Request was made for {type.Name} with params: {postData}");
         }
     }
 }

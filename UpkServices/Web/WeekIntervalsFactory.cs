@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UpkModel.Database;
+using UpkModel.Database.Schedule;
 
 namespace UpkServices.Web
 {
@@ -38,7 +39,8 @@ namespace UpkServices.Web
                 return _defaultTeacher ?? (_defaultTeacher = UpkDatabaseContext
                     .Instance
                     .Teachers
-                    .FirstOrDefault( t => t.FIO == "Блок Иван Николаевич"));
+                    .FirstOrDefault( t => t.FIO == "Колдунова Ирина Дмитриевна"));
+                    //.FirstOrDefault( t => t.FIO == "Блок Иван Николаевич"));
             }
         }
 
@@ -58,8 +60,8 @@ namespace UpkServices.Web
         /// </summary>
         static IEnumerable<WeekInterval> GetIntervalsFromWeb(DateTime from, DateTime to, Teacher teacher)
         {
-            var allIntervals = new RepeatableObjectWebLoader(Configs.Instance.MaxAttempts, Configs.Instance.SleepInterval)
-                .Load<WeekInterval>(String.Format(HtmlNodeParsers.DateIntervalsPostDataTemplate, teacher.DepartmentId, teacher.FIO))
+            var allIntervals = new RepeatableObjectWebLoader(Settings.MaxAttempts, Settings.RetryInterval)
+                .Load<WeekInterval>(string.Format(HtmlNodeParsers.DateIntervalsPostDataTemplate, teacher.DepartmentId, teacher.FIO))
                 .OrderBy(wi => wi.Start);
             SaveWeekIntervalsChanges(allIntervals);
             return allIntervals

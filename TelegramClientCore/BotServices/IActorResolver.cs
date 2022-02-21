@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UpkModel.Database;
+using UpkModel.Database.Schedule;
 
 namespace TelegramClientCore.BotServices
 {

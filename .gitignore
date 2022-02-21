@@ -261,3 +261,8 @@ __pycache__/
 *.pyc
 /ConsoleApp2
 /TelegramClientCore/App.config
+/Client
+/MainHandler
+/ServerlessBot
+/UpkBot.Serverless.Database
+/UpkBot.Serverless.Triggers

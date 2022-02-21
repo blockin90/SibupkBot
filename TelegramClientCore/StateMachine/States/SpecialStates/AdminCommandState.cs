@@ -69,7 +69,9 @@ namespace TelegramClientCore.StateMachine.States.SpecialStates
         }
         private void SendBroadcastMessage(string message)
         {
-            StateMachineContext.MessageSender.SendBroadcastMessage(message);
+            if (!string.IsNullOrEmpty(message)) {
+                StateMachineContext.MessageSender.SendBroadcastMessage(message);
+            }
         }
         private void UpdateActors()
         {

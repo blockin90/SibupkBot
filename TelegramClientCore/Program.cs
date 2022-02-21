@@ -1,6 +1,4 @@
-﻿
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
+﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Configuration;
 using System.Diagnostics;
@@ -8,19 +6,22 @@ using System.Globalization;
 using System.Net;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 using Telegram.Bot;
 using Telegram.Bot.Types;
+using TelegramClientCore.BotCache;
 using TelegramClientCore.BotDatabase;
 using TelegramClientCore.BotServices;
 using TelegramClientCore.StateMachine;
-using UpkModel.Database;
+using UpkModel.Database.Schedule;
 using UpkServices;
-using User = TelegramClientCore.BotDatabase.User;
+using User = UpkModel.Database.Users.User;
 
 namespace TelegramClientCore
 {
     internal class Program
     {
+
         private static TelegramBotClient Client { get; set; }
         private static StateMachineFactory StateMachineFactory { get; set; }
         private static SiteUpdatesNotificationSender SiteUpdatesNotificationSender { get; set; }
@@ -48,9 +49,9 @@ namespace TelegramClientCore
         private static IActorResolver GetActorResolver()
         {
             Console.WriteLine("Loading groups...");
-            var groups = new GroupsFactory(UpkDatabaseContext.Instance, Configs.Instance).GetGroups();
+            var groups = new GroupsFactory(UpkDatabaseContext.Instance).GetGroups();
             Console.WriteLine("Loading teachers list...");
-            var teachers = (new UpkServices.TeachersFactory(UpkDatabaseContext.Instance, Configs.Instance)).GetTeachers();
+            var teachers = (new UpkServices.TeachersFactory(UpkDatabaseContext.Instance)).GetTeachers();
             return new ActorByNameResolver(teachers, groups);
         }
 
@@ -60,7 +61,7 @@ namespace TelegramClientCore
         private static void InitializeBot()
         {
             var token = ConfigurationManager.AppSettings.Get("BotToken");
-            if( String.IsNullOrEmpty(token))
+            if(string.IsNullOrEmpty(token))
             {
                 throw new ConfigurationErrorsException("App.config must contain valid value for BotToken key in appSettings section");
             }
@@ -70,18 +71,18 @@ namespace TelegramClientCore
             } else {
                 Client = new TelegramBotClient(token, new WebProxy(proxyAddress));
             }
-            long adminId = 0;
-            long.TryParse(ConfigurationManager.AppSettings.Get("AdminId"), out adminId);
+            long.TryParse(ConfigurationManager.AppSettings.Get("AdminId"), out long adminId);
             StateMachineContext.AdminChatId = adminId;
 
-            Client.OnMessage += Client_OnMessage;
+            Client.OnMessage += Client_OnMessage;            
             Client.OnReceiveError += Client_OnReceiveError;
             Client.OnReceiveGeneralError += Client_OnReceiveGeneralError;
             Client.Timeout = new TimeSpan(0, 0, 2);
             
             var actorResolver = GetActorResolver();
             
-            ISiteUpdateNotificator notificator = new SiteUpdatesChecker(new TimeSpan(1, 0, 0), @"http://www.sibupk.su/students/raspis/");//уведомление об изменениях на сайте
+            ISiteUpdateNotificator notificator = new SiteUpdateNotificator(new TimeSpan(1, 0, 0), @"http://www.sibupk.su/students/raspis/");//уведомление об изменениях на сайте
+            notificator.OnSiteUpdate += (sender, args) => GroupScheduleCache.Instance.Reset();
 
             //регистрируем сервисы
             ServiceProvider.RegisterService(typeof(MessageSender), new MessageSender(Client)); //сервис отправки 
@@ -115,7 +116,7 @@ namespace TelegramClientCore
         #region telegram bot events handling
         private static void Client_OnReceiveGeneralError(object sender, Telegram.Bot.Args.ReceiveGeneralErrorEventArgs e)
         {
-            MyTrace.WriteLine(e.Exception.Message);
+            MyTrace.WriteLine(e.Exception.GetFullMessage());
         }
 
         private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
@@ -127,7 +128,9 @@ namespace TelegramClientCore
         private static void Client_OnReceiveError(object sender, Telegram.Bot.Args.ReceiveErrorEventArgs e)
         {
 #if DEBUG
-            Console.WriteLine(e.ApiRequestException.Message);
+            if(!(e.ApiRequestException.InnerException is TaskCanceledException)) {
+                Console.WriteLine(e.ApiRequestException.GetFullMessage());
+            }
 #endif
         }
 
@@ -143,19 +146,22 @@ namespace TelegramClientCore
              * обрабатываем полученное сообщение полученным контекстом
              */
             if (e.Message.From.IsBot == false) {
-                StateMachineContext machineContext = null;
-                if (e.Message.Text == "/start") {   //начало нового чата
-                    machineContext = StateMachineFactory.GetEmptyContext(e.Message.Chat);
-                } else {
-                    machineContext = StateMachineFactory.GetContext(e.Message.Chat.Id);
-                }
-                WriteUserActionAsync(e.Message, machineContext);
-                //обрабатываем полученное состояние
-                try {
-                    machineContext.OnMessageReceive(e.Message.Text);
-                } catch (Exception ex) {
-                    MyTrace.WriteLine(ex.Message);
-                }
+                Task.Run(() =>
+                {
+                    StateMachineContext machineContext = null;
+                    if (e.Message.Text == "/start") {   //начало нового чата
+                        machineContext = StateMachineFactory.GetEmptyContext(e.Message.Chat);
+                    } else {
+                        machineContext = StateMachineFactory.GetContext(e.Message.Chat.Id);
+                    }
+                    WriteUserActionAsync(e.Message, machineContext);
+                    //обрабатываем полученное состояние
+                    try {
+                        machineContext.OnMessageReceive(e.Message.Text);
+                    } catch (Exception ex) {
+                        MyTrace.WriteLine(ex.GetFullMessage());
+                    }
+                });
             }
         }
         #endregion
@@ -169,29 +175,22 @@ namespace TelegramClientCore
             try {
                 BotDbContext dbInstance = BotDbContext.Instance;
                 //если пользователь еще не сохранен в БД, сохраняем
-                if (dbInstance.Users.Find(message.Chat.Id) == null) {
-                    dbInstance.Users.AddAsync(new User()
-                    {
-                        ChatId = message.Chat.Id,
-                        UserName = message.From.Username,
-                        LastName = message.From.LastName,
-                        FirstName = message.From.FirstName
-                    }).AsTask().ContinueWith(t => { if (t.Exception != null) { Console.WriteLine(t.Exception.Message); } });
+                lock (BotDbContext.syncObject) {
+                    if (dbInstance.Users.Find(message.Chat.Id) == null) {
+                        dbInstance.Users.AddAsync(new User()
+                        {
+                            ChatId = message.Chat.Id,
+                            UserName = message.From.Username,
+                            LastName = message.From.LastName,
+                            FirstName = message.From.FirstName
+                        }).AsTask().ContinueWith(t => { if (t.Exception != null) { Console.WriteLine(t.Exception.GetFullMessage()); } });
+                    }
                 }
                 //записываем его текущее состояние и производимое действие
                 dbInstance.Database.ExecuteSqlRaw("insert into LogRecords(ChatId, CurrentState, Message,RecordTime) values ({0},{1},{2},{3})",
                     message.Chat.Id, machineContext?.CurrentState?.ToString() ?? String.Empty, message.Text, DateInfo.Now);
-                /*dbInstance.LogRecords.Add(
-                    new LogRecord
-                    {
-                        ChatId = message.Chat.Id,
-                        CurrentState = machineContext?.CurrentState?.ToString(),
-                        Message = message.Text,
-                        RecordTime = DateInfo.Now
-                    });
-                dbInstance.SaveChanges(true);*/
             } catch (Exception e) {
-                MyTrace.WriteLine(e.Message);
+                MyTrace.WriteLine(e.GetFullMessage());
             }
         }
     }

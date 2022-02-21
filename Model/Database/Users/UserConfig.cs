@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
-namespace TelegramClientCore.BotDatabase
+namespace UpkModel.Database.Users
 {
     //ужасный с точки зрения БД класс :(
     public class UserConfig

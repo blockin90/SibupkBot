@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Text.RegularExpressions;
 using UpkModel.Database;
+using UpkModel.Database.Schedule;
 
 namespace TelegramClientCore.BotServices
 {
@@ -21,7 +22,7 @@ namespace TelegramClientCore.BotServices
 
         private Dictionary<char, SortedList<string, Actor>> _availableActors;
 
-        public ActorByNameResolver(IEnumerable<Teacher> teachers, IEnumerable<UpkModel.Database.Group> groups)
+        public ActorByNameResolver(IEnumerable<Teacher> teachers, IEnumerable<UpkModel.Database.Schedule.Group> groups)
         {
             var emptySet = new Actor[0];
             var set = emptySet.Union(groups).Union(teachers);

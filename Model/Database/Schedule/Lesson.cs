@@ -7,7 +7,7 @@ using System.Runtime.CompilerServices;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 
-namespace UpkModel.Database
+namespace UpkModel.Database.Schedule
 {
     /// <summary>
     /// Учебное занятие
@@ -15,6 +15,11 @@ namespace UpkModel.Database
     public class Lesson
     {
         public int Id { get; set; }
+
+        /// <summary>
+        /// Версия строки
+        /// </summary>
+        public long TimeStamp { get; set; }
 
         [Range(1,9)]
         public int LessonNum { get; set; }
@@ -27,11 +32,12 @@ namespace UpkModel.Database
         public bool Online { get; set; }
         public LessonType LessonType { get; set; }
 
-        public int TeacherId { get; set; }
-        public Teacher Teacher { get; set; }
-
-        public int WorkDayId { get; set; }
-        public WorkDay WorkDay { get; set; }
+        //public int TeacherId { get; set; }
+        //public Teacher Teacher { get; set; }
+        
+        public string TeacherName { get; set; }
+        
+        public DateTime Date { get; set; }
 
         [NotMapped]
         public string TimeInterval {
@@ -71,17 +77,17 @@ namespace UpkModel.Database
                     case 3:
                         return "12:15";
                     case 4:
-                        return "14:00";
+                        return "14:05";
                     case 5:
-                        return "15:45";
+                        return "15:50";
                     case 6:
-                        return "17:30";
+                        return "17:35";
                     case 7:
-                        return "19:15";
+                        return "19:20";
                     case 8:
-                        return "21:00"; 
+                        return "21:05"; 
                     default:
-                        return "поздно";
+                        return "очень поздно";
                 }
             }
         }

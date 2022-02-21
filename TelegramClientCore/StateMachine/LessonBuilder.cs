@@ -2,6 +2,7 @@
 using System.Text;
 using UpkModel;
 using UpkModel.Database;
+using UpkModel.Database.Schedule;
 
 namespace TelegramClientCore.StateMachine
 {
@@ -62,7 +63,7 @@ namespace TelegramClientCore.StateMachine
         public LessonBuilder AddTeacher()
         {
             if (machineContext.UserConfig.TeachersVisibility) {
-                stringBuilder.Append($" / {lesson.Teacher.ShortFio}");
+                stringBuilder.Append($" / {lesson.TeacherName}");
             }
             return this;
         }

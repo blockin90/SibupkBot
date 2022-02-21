@@ -16,8 +16,6 @@ namespace TelegramClientCore.BotServices
     /// </summary>
     public class MessageSender
     {
-        private TelegramBotClient Client { get; set; }
-
         QueueHandler _messageHandler;
         QueueHandler _broadcastMessageHandler;
 
@@ -45,12 +43,14 @@ namespace TelegramClientCore.BotServices
 
         public void SendScheduleChangingNotification(string message)
         {
-            var ids = BotDatabase.BotDbContext.Instance
-                .Users
-                .Where(record => !string.IsNullOrEmpty(record.ExtraData))
-                .Select(record => record.ChatId)
-                .ToArray();
-
+            long[] ids;
+            lock (BotDatabase.BotDbContext.syncObject) {
+                ids = BotDatabase.BotDbContext.Instance
+                    .Users
+                    .Where(record => !string.IsNullOrEmpty(record.ExtraData))
+                    .Select(record => record.ChatId)
+                    .ToArray();
+            }
             foreach (var id in ids) {
                 _broadcastMessageHandler.AddMessageToQueue(new ChatId(id), message, null, ParseMode.Default);
             }
