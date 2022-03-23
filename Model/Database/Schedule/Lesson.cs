@@ -14,13 +14,24 @@ namespace UpkModel.Database.Schedule
     /// </summary>
     public class Lesson
     {
-        public int Id { get; set; }
+        public override bool Equals(object obj)
+        {
+            var other = obj as Lesson;
+            if(other == null) {
+                return false;
+            }
+            return other.Online == this.Online &&
+                other.Group == this.Group &&
+                other.LessonNum == this.LessonNum &&
+                other.Auditory == this.Auditory &&
+                other.Date == this.Date &&
+                other.Discipline == this.Discipline &&
+                other.Group == this.Group &&
+                other.LessonType == this.LessonType &&
+                other.TeacherName == this.TeacherName;
 
-        /// <summary>
-        /// Версия строки
-        /// </summary>
-        public long TimeStamp { get; set; }
 
+        }
         [Range(1,9)]
         public int LessonNum { get; set; }
         [Required, MaxLength(100)]
@@ -31,9 +42,6 @@ namespace UpkModel.Database.Schedule
         public string Auditory { get; set; }
         public bool Online { get; set; }
         public LessonType LessonType { get; set; }
-
-        //public int TeacherId { get; set; }
-        //public Teacher Teacher { get; set; }
         
         public string TeacherName { get; set; }
         

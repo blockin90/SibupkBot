@@ -15,7 +15,7 @@ namespace TelegramClientCore.BotServices
         /// <param name="chatId">идентификатор чата пользователя</param>
         /// <param name="message">сообщения для отправки</param>
         /// <param name="replyKeyboard">клавиатура, прилагаемая к сообщению</param>
-        void SendAsync(ChatId chatId, string message, IReplyMarkup replyKeyboard = null, ParseMode parseMode = ParseMode.Default);
+        void SendAsync(ChatId chatId, string message, IReplyMarkup replyKeyboard = null, ParseMode parseMode = ParseMode.MarkdownV2);
         /// <summary>
         /// Широковещательная рассылка заданного сообщения
         /// </summary>

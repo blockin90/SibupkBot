@@ -3,6 +3,7 @@ using System;
 using System.Configuration;
 using System.Diagnostics;
 using System.Globalization;
+using System.IO;
 using System.Net;
 using System.Text;
 using System.Threading;
@@ -36,7 +37,8 @@ namespace TelegramClientCore
 #if DEBUG
             Trace.Listeners.Add(new TextWriterTraceListener(Console.Out));
 #endif
-            Trace.Listeners.Add(new TextWriterTraceListener(new System.IO.StreamWriter("errors.txt",true)));
+            Trace.Listeners.Add(new TextWriterTraceListener(
+                new StreamWriter(Path.Combine(Environment.CurrentDirectory, $"logs/{DateTime.UtcNow:yy_MM_dd}_errors.txt"), true)));
             Trace.AutoFlush = true;
 
             //регистрируем поддержку кодировки win-1251
@@ -82,17 +84,21 @@ namespace TelegramClientCore
             var actorResolver = GetActorResolver();
             
             ISiteUpdateNotificator notificator = new SiteUpdateNotificator(new TimeSpan(1, 0, 0), @"http://www.sibupk.su/students/raspis/");//уведомление об изменениях на сайте
-            notificator.OnSiteUpdate += (sender, args) => GroupScheduleCache.Instance.Reset();
-
+            
             //регистрируем сервисы
             ServiceProvider.RegisterService(typeof(MessageSender), new MessageSender(Client)); //сервис отправки 
             ServiceProvider.RegisterService(typeof(IActorResolver), actorResolver);    //сервис определения типа пользователя по его имени
+            ServiceProvider.RegisterService(typeof(GroupScheduleCache), new GroupScheduleCache());
             ServiceProvider.RegisterService(typeof(ISiteUpdateNotificator), notificator);
+
+            notificator.OnSiteUpdate += (sender, args) => ServiceProvider.GetService<GroupScheduleCache>()?.Reset();
+
 
             notificator.OnSiteUpdate += LogSiteUpdates;
             SiteUpdatesNotificationSender = new SiteUpdatesNotificationSender();
             StateMachineFactory = new StateMachineFactory(actorResolver);
-            Client.StartReceiving();
+            Client.StartReceiving();           
+            
             Console.WriteLine("Server started...");
         }
 
@@ -166,6 +172,8 @@ namespace TelegramClientCore
         }
         #endregion
 
+        static object dbSyncObject = new object();
+
         /// <summary>
         /// Сохранение пользовательского запроса в базе данных
         /// </summary>
@@ -186,9 +194,11 @@ namespace TelegramClientCore
                         }).AsTask().ContinueWith(t => { if (t.Exception != null) { Console.WriteLine(t.Exception.GetFullMessage()); } });
                     }
                 }
-                //записываем его текущее состояние и производимое действие
-                dbInstance.Database.ExecuteSqlRaw("insert into LogRecords(ChatId, CurrentState, Message,RecordTime) values ({0},{1},{2},{3})",
-                    message.Chat.Id, machineContext?.CurrentState?.ToString() ?? String.Empty, message.Text, DateInfo.Now);
+                //записываем его текущее состояние и производимое действие 
+                lock (dbSyncObject) {
+                    dbInstance.Database.ExecuteSqlRaw("insert into LogRecords(ChatId, CurrentState, Message,RecordTime) values ({0},{1},{2},{3})",
+                        message.Chat.Id, machineContext?.CurrentState?.ToString() ?? String.Empty, message.Text, DateInfo.Now);
+                }
             } catch (Exception e) {
                 MyTrace.WriteLine(e.GetFullMessage());
             }

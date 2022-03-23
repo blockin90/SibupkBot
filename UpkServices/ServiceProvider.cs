@@ -56,7 +56,7 @@ namespace UpkServices
             }else if( RegisteredInstances.ContainsKey(serviceInterface) ) {
                 return RegisteredInstances[serviceInterface] as T;
             }
-            throw new NotImplementedException();
+            return null;
         }
         
     }

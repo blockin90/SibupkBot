@@ -18,27 +18,11 @@ namespace TelegramClientCore.BotCache
     /// </summary>
     internal class GroupScheduleCache : IDisposable
     {
-        private static GroupScheduleCache _instance;
         static object _syncObject = new object();
 
         ConcurrentDictionary<int, MemoryCache> _groupsCache;
 
-        public static GroupScheduleCache Instance
-        {
-            get
-            {
-                if (_instance == null) {
-                    lock (_syncObject) {
-                        if (_instance == null) {
-                            _instance = new GroupScheduleCache();
-                        }
-                    }
-                }
-                return _instance;
-            }
-        }
-
-        private GroupScheduleCache()
+        public GroupScheduleCache()
         {
             _groupsCache = new ConcurrentDictionary<int, MemoryCache>();
         }

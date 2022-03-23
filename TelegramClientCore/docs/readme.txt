@@ -41,6 +41,8 @@ RestartSec=10
 ##команды:
 sudo cp -r /home/ubuntu/loaded/* /var/SibupkBot   
 sudo systemctl restart SibupkBot.service
+sudo systemctl start SibupkBot.service
+sudo systemctl stop SibupkBot.service
 
 Для включения службы ввести sudo systemctl enable <Имя-службы>
 

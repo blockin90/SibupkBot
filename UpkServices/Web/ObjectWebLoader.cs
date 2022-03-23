@@ -81,14 +81,11 @@ namespace UpkServices.Web
         private static IEnumerable<T> Load<T>(Func<HtmlNode, T> decoder, string url, string xPath, string postData = "") where T : class
         {
             HtmlDocument doc = new HtmlDocument();
+
             string html = HtmlPageLoader.SendWebRequest(url,postData);
-            doc.LoadHtml(html);
-            var nodes = doc.DocumentNode.SelectNodes(xPath);
-            if( nodes == null) {
-                return new T[0];
-            }
-            return nodes.Select(decoder).Where( e => e != null );
-        }
+            return HtmlNodeParsers.Decode(html, decoder, xPath);
+        }       
+
         /// <summary>
         /// Парсинг переданной страницы и возврат объектов, соответствующих заданным узлам html-страницы
         /// </summary>

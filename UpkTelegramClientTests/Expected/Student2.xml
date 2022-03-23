@@ -1,0 +1,363 @@
+﻿<?xml version="1.0"?>
+<ArrayOfStudentWorkDay xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <StudentWorkDay>
+    <Date>2022-02-28T00:00:00</Date>
+    <Lessons>
+      <Lesson>
+        <LessonNum>3</LessonNum>
+        <Discipline>Базы данных</Discipline>
+        <Group>ПИБ-01.1</Group>
+        <Auditory>227 (1)</Auditory>
+        <Online>false</Online>
+        <LessonType>LabWork</LessonType>
+        <TeacherName>Астапчук В.А.</TeacherName>
+        <Date>2022-02-28T00:00:00</Date>
+      </Lesson>
+      <Lesson>
+        <LessonNum>4</LessonNum>
+        <Discipline>Базы данных</Discipline>
+        <Group>ПИБ-01.1</Group>
+        <Auditory>227 (1)</Auditory>
+        <Online>false</Online>
+        <LessonType>LabWork</LessonType>
+        <TeacherName>Астапчук В.А.</TeacherName>
+        <Date>2022-02-28T00:00:00</Date>
+      </Lesson>
+      <Lesson>
+        <LessonNum>5</LessonNum>
+        <Discipline>Дискретная математика</Discipline>
+        <Group>ПИБ-01.1</Group>
+        <Auditory>10 (2)</Auditory>
+        <Online>false</Online>
+        <LessonType>Lecture</LessonType>
+        <TeacherName>Комиссаров В.В.</TeacherName>
+        <Date>2022-02-28T00:00:00</Date>
+      </Lesson>
+      <Lesson>
+        <LessonNum>6</LessonNum>
+        <Discipline>Дискретная математика</Discipline>
+        <Group>ПИБ-01.1</Group>
+        <Auditory>10 (2)</Auditory>
+        <Online>false</Online>
+        <LessonType>Practical</LessonType>
+        <TeacherName>Комиссаров В.В.</TeacherName>
+        <Date>2022-02-28T00:00:00</Date>
+      </Lesson>
+    </Lessons>
+  </StudentWorkDay>
+  <StudentWorkDay>
+    <Date>2022-03-01T00:00:00</Date>
+    <Lessons>
+      <Lesson>
+        <LessonNum>2</LessonNum>
+        <Discipline>Элективные дисциплины по физической культуре и спорту (Легкая атлетика/Волейбол/Баскетбол/Общая физическая подготовка) (с)</Discipline>
+        <Group>ПИБ-01.1,  РБ-01.1</Group>
+        <Auditory>а.Cпорт.зал УК 3 </Auditory>
+        <Online>false</Online>
+        <LessonType>Unknown</LessonType>
+        <TeacherName>Паулец Е.А.</TeacherName>
+        <Date>2022-03-01T00:00:00</Date>
+      </Lesson>
+      <Lesson>
+        <LessonNum>3</LessonNum>
+        <Discipline>Информационные системы и технологии</Discipline>
+        <Group>ПИБ-01.1</Group>
+        <Auditory>215 (1)</Auditory>
+        <Online>false</Online>
+        <LessonType>Lecture</LessonType>
+        <TeacherName>Тесля Н.Б.</TeacherName>
+        <Date>2022-03-01T00:00:00</Date>
+      </Lesson>
+      <Lesson>
+        <LessonNum>4</LessonNum>
+        <Discipline>Теория вероятностей и математическая статистика</Discipline>
+        <Group>ПИБ-01.1</Group>
+        <Auditory>10 (2)</Auditory>
+        <Online>false</Online>
+        <LessonType>Practical</LessonType>
+        <TeacherName>Комиссаров В.В.</TeacherName>
+        <Date>2022-03-01T00:00:00</Date>
+      </Lesson>
+      <Lesson>
+        <LessonNum>5</LessonNum>
+        <Discipline>Теория вероятностей и математическая статистика</Discipline>
+        <Group>ПИБ-01.1</Group>
+        <Auditory>10 (2)</Auditory>
+        <Online>false</Online>
+        <LessonType>Lecture</LessonType>
+        <TeacherName>Комиссаров В.В.</TeacherName>
+        <Date>2022-03-01T00:00:00</Date>
+      </Lesson>
+    </Lessons>
+  </StudentWorkDay>
+  <StudentWorkDay>
+    <Date>2022-03-02T00:00:00</Date>
+    <Lessons>
+      <Lesson>
+        <LessonNum>1</LessonNum>
+        <Discipline>Теория вероятностей и математическая статистика</Discipline>
+        <Group>ПИБ-01.1</Group>
+        <Auditory>408 (1)</Auditory>
+        <Online>false</Online>
+        <LessonType>Practical</LessonType>
+        <TeacherName>Комиссаров В.В.</TeacherName>
+        <Date>2022-03-02T00:00:00</Date>
+      </Lesson>
+      <Lesson>
+        <LessonNum>2</LessonNum>
+        <Discipline>Теория вероятностей и математическая статистика</Discipline>
+        <Group>ПИБ-01.1</Group>
+        <Auditory>408 (1)</Auditory>
+        <Online>false</Online>
+        <LessonType>Lecture</LessonType>
+        <TeacherName>Комиссаров В.В.</TeacherName>
+        <Date>2022-03-02T00:00:00</Date>
+      </Lesson>
+      <Lesson>
+        <LessonNum>3</LessonNum>
+        <Discipline>Базы данных</Discipline>
+        <Group>ПИБ-01.1</Group>
+        <Auditory>236 (1)</Auditory>
+        <Online>false</Online>
+        <LessonType>Lecture</LessonType>
+        <TeacherName>Астапчук В.А.</TeacherName>
+        <Date>2022-03-02T00:00:00</Date>
+      </Lesson>
+    </Lessons>
+  </StudentWorkDay>
+  <StudentWorkDay>
+    <Date>2022-03-03T00:00:00</Date>
+    <Lessons>
+      <Lesson>
+        <LessonNum>4</LessonNum>
+        <Discipline>Теория вероятностей и математическая статистика</Discipline>
+        <Group>ПИБ-01.1</Group>
+        <Auditory>10 (2)</Auditory>
+        <Online>false</Online>
+        <LessonType>Practical</LessonType>
+        <TeacherName>Комиссаров В.В.</TeacherName>
+        <Date>2022-03-03T00:00:00</Date>
+      </Lesson>
+      <Lesson>
+        <LessonNum>5</LessonNum>
+        <Discipline>Теория вероятностей и математическая статистика</Discipline>
+        <Group>ПИБ-01.1</Group>
+        <Auditory>219 (1)</Auditory>
+        <Online>false</Online>
+        <LessonType>LabWork</LessonType>
+        <TeacherName>Комиссаров В.В.</TeacherName>
+        <Date>2022-03-03T00:00:00</Date>
+      </Lesson>
+    </Lessons>
+  </StudentWorkDay>
+  <StudentWorkDay>
+    <Date>2022-03-05T00:00:00</Date>
+    <Lessons>
+      <Lesson>
+        <LessonNum>2</LessonNum>
+        <Discipline>Программирование</Discipline>
+        <Group>ПИБ-01.1</Group>
+        <Auditory>207 (1)</Auditory>
+        <Online>false</Online>
+        <LessonType>LabWork</LessonType>
+        <TeacherName>Блок И.Н.</TeacherName>
+        <Date>2022-03-05T00:00:00</Date>
+      </Lesson>
+      <Lesson>
+        <LessonNum>3</LessonNum>
+        <Discipline>Операционные системы</Discipline>
+        <Group>ПИБ-01.1</Group>
+        <Auditory>207 (1)</Auditory>
+        <Online>false</Online>
+        <LessonType>LabWork</LessonType>
+        <TeacherName>Блок И.Н.</TeacherName>
+        <Date>2022-03-05T00:00:00</Date>
+      </Lesson>
+      <Lesson>
+        <LessonNum>4</LessonNum>
+        <Discipline>Операционные системы</Discipline>
+        <Group>ПИБ-01.1</Group>
+        <Auditory>134 (1)</Auditory>
+        <Online>false</Online>
+        <LessonType>Lecture</LessonType>
+        <TeacherName>Блок И.Н.</TeacherName>
+        <Date>2022-03-05T00:00:00</Date>
+      </Lesson>
+      <Lesson>
+        <LessonNum>5</LessonNum>
+        <Discipline>Программирование</Discipline>
+        <Group>ПИБ-01.1</Group>
+        <Auditory>330 (1)</Auditory>
+        <Online>false</Online>
+        <LessonType>Lecture</LessonType>
+        <TeacherName>Блок И.Н.</TeacherName>
+        <Date>2022-03-05T00:00:00</Date>
+      </Lesson>
+    </Lessons>
+  </StudentWorkDay>
+  <StudentWorkDay>
+    <Date>2022-03-07T00:00:00</Date>
+    <Lessons>
+      <Lesson>
+        <LessonNum>3</LessonNum>
+        <Discipline>Базы данных</Discipline>
+        <Group>ПИБ-01.1</Group>
+        <Auditory>227 (1)</Auditory>
+        <Online>false</Online>
+        <LessonType>LabWork</LessonType>
+        <TeacherName>Астапчук В.А.</TeacherName>
+        <Date>2022-03-07T00:00:00</Date>
+      </Lesson>
+      <Lesson>
+        <LessonNum>4</LessonNum>
+        <Discipline>Дискретная математика</Discipline>
+        <Group>ПИБ-01.1</Group>
+        <Auditory>13 (2)</Auditory>
+        <Online>false</Online>
+        <LessonType>Lecture</LessonType>
+        <TeacherName>Комиссаров В.В.</TeacherName>
+        <Date>2022-03-07T00:00:00</Date>
+      </Lesson>
+      <Lesson>
+        <LessonNum>5</LessonNum>
+        <Discipline>Дискретная математика</Discipline>
+        <Group>ПИБ-01.1</Group>
+        <Auditory>13 (2)</Auditory>
+        <Online>false</Online>
+        <LessonType>Practical</LessonType>
+        <TeacherName>Комиссаров В.В.</TeacherName>
+        <Date>2022-03-07T00:00:00</Date>
+      </Lesson>
+    </Lessons>
+  </StudentWorkDay>
+  <StudentWorkDay>
+    <Date>2022-03-08T00:00:00</Date>
+    <Lessons>
+      <Lesson>
+        <LessonNum>1</LessonNum>
+        <Discipline>Нерабочий праздничный день</Discipline>
+        <Group />
+        <Auditory />
+        <Online>false</Online>
+        <LessonType>Unknown</LessonType>
+        <TeacherName />
+        <Date>2022-03-08T00:00:00</Date>
+      </Lesson>
+    </Lessons>
+  </StudentWorkDay>
+  <StudentWorkDay>
+    <Date>2022-03-09T00:00:00</Date>
+    <Lessons>
+      <Lesson>
+        <LessonNum>2</LessonNum>
+        <Discipline>Факультативная дисциплина: Логика и теория аргументации</Discipline>
+        <Group>ПИБ-01.1</Group>
+        <Auditory>423 (1)</Auditory>
+        <Online>false</Online>
+        <LessonType>Lecture</LessonType>
+        <TeacherName>Моргунов Г.В.</TeacherName>
+        <Date>2022-03-09T00:00:00</Date>
+      </Lesson>
+      <Lesson>
+        <LessonNum>3</LessonNum>
+        <Discipline>Базы данных</Discipline>
+        <Group>ПИБ-01.1</Group>
+        <Auditory>401 (1)</Auditory>
+        <Online>false</Online>
+        <LessonType>Lecture</LessonType>
+        <TeacherName>Астапчук В.А.</TeacherName>
+        <Date>2022-03-09T00:00:00</Date>
+      </Lesson>
+      <Lesson>
+        <LessonNum>4</LessonNum>
+        <Discipline>Теория вероятностей и математическая статистика</Discipline>
+        <Group>ПИБ-01.1</Group>
+        <Auditory>12 (2)</Auditory>
+        <Online>false</Online>
+        <LessonType>Lecture</LessonType>
+        <TeacherName>Комиссаров В.В.</TeacherName>
+        <Date>2022-03-09T00:00:00</Date>
+      </Lesson>
+      <Lesson>
+        <LessonNum>5</LessonNum>
+        <Discipline>Информационные системы и технологии</Discipline>
+        <Group>ПИБ-01.1</Group>
+        <Auditory>317 (1)</Auditory>
+        <Online>false</Online>
+        <LessonType>LabWork</LessonType>
+        <TeacherName>Тесля Н.Б.</TeacherName>
+        <Date>2022-03-09T00:00:00</Date>
+      </Lesson>
+    </Lessons>
+  </StudentWorkDay>
+  <StudentWorkDay>
+    <Date>2022-03-10T00:00:00</Date>
+    <Lessons>
+      <Lesson>
+        <LessonNum>4</LessonNum>
+        <Discipline>Теория вероятностей и математическая статистика</Discipline>
+        <Group>ПИБ-01.1</Group>
+        <Auditory>012 (1)</Auditory>
+        <Online>false</Online>
+        <LessonType>Practical</LessonType>
+        <TeacherName>Комиссаров В.В.</TeacherName>
+        <Date>2022-03-10T00:00:00</Date>
+      </Lesson>
+      <Lesson>
+        <LessonNum>5</LessonNum>
+        <Discipline>Теория вероятностей и математическая статистика</Discipline>
+        <Group>ПИБ-01.1</Group>
+        <Auditory>219 (1)</Auditory>
+        <Online>false</Online>
+        <LessonType>LabWork</LessonType>
+        <TeacherName>Комиссаров В.В.</TeacherName>
+        <Date>2022-03-10T00:00:00</Date>
+      </Lesson>
+    </Lessons>
+  </StudentWorkDay>
+  <StudentWorkDay>
+    <Date>2022-03-12T00:00:00</Date>
+    <Lessons>
+      <Lesson>
+        <LessonNum>2</LessonNum>
+        <Discipline>Программирование</Discipline>
+        <Group>ПИБ-01.1</Group>
+        <Auditory>207 (1)</Auditory>
+        <Online>false</Online>
+        <LessonType>LabWork</LessonType>
+        <TeacherName>Блок И.Н.</TeacherName>
+        <Date>2022-03-12T00:00:00</Date>
+      </Lesson>
+      <Lesson>
+        <LessonNum>3</LessonNum>
+        <Discipline>Операционные системы</Discipline>
+        <Group>ПИБ-01.1</Group>
+        <Auditory>207 (1)</Auditory>
+        <Online>false</Online>
+        <LessonType>LabWork</LessonType>
+        <TeacherName>Блок И.Н.</TeacherName>
+        <Date>2022-03-12T00:00:00</Date>
+      </Lesson>
+      <Lesson>
+        <LessonNum>4</LessonNum>
+        <Discipline>Операционные системы</Discipline>
+        <Group>ПИБ-01.1</Group>
+        <Auditory>330 (1)</Auditory>
+        <Online>false</Online>
+        <LessonType>Lecture</LessonType>
+        <TeacherName>Блок И.Н.</TeacherName>
+        <Date>2022-03-12T00:00:00</Date>
+      </Lesson>
+      <Lesson>
+        <LessonNum>5</LessonNum>
+        <Discipline>Программирование</Discipline>
+        <Group>ПИБ-01.1</Group>
+        <Auditory>330 (1)</Auditory>
+        <Online>false</Online>
+        <LessonType>Lecture</LessonType>
+        <TeacherName>Блок И.Н.</TeacherName>
+        <Date>2022-03-12T00:00:00</Date>
+      </Lesson>
+    </Lessons>
+  </StudentWorkDay>
+</ArrayOfStudentWorkDay>

@@ -34,7 +34,7 @@ namespace TelegramClientCore.StateMachine.States.StudentStates
 
         protected override IEnumerable<WorkDay> GetSchedule(DateTime from,DateTime to)
         {
-            return GroupScheduleCache.Instance.GetWorkDays(Group, from, to);
+            return ServiceProvider.GetService<GroupScheduleCache>().GetWorkDays(Group, from, to);
         }
 
         protected override string GetMessageHeader()

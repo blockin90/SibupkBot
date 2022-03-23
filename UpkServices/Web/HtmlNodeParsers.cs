@@ -1,6 +1,7 @@
 ﻿using HtmlAgilityPack;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 using UpkModel;
 using UpkModel.Database;
@@ -129,7 +130,7 @@ namespace UpkServices.Web
             }
             return null;
         }
-        internal static StudentWorkDay DecodeStudentWorkDay(HtmlNode node)
+        public static StudentWorkDay DecodeStudentWorkDay(HtmlNode node)
         {
             Match m = WorkDayRegex.Match(node.InnerText);
             if (m.Success) {
@@ -220,6 +221,17 @@ namespace UpkServices.Web
                 lessonType = LessonType.Unknown;
             }
         }
+        public static IEnumerable<T> Decode<T>(string html, Func<HtmlNode, T> decoder, string xPath) where T : class
+        {
+            HtmlDocument doc = new HtmlDocument();
+            doc.LoadHtml(html);
+            var nodes = doc.DocumentNode.SelectNodes(xPath);
+            if (nodes == null) {
+                return Enumerable.Empty<T>();
+            }
+            return nodes.Select(decoder).Where(e => e != null);
+        }
+
 
     }
 }

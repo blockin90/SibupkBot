@@ -75,24 +75,22 @@ namespace UpkServices.Web
         static bool TryToGetIntervalsFromDb(out IEnumerable<WeekInterval> result, DateTime from, DateTime to)
         {
             result = null;
-            //lock (UpkDatabaseContext.Instance.WeekIntervals) {
-                var first = UpkDatabaseContext.Instance.WeekIntervals
-                    .Where(wi => wi.Start <= from)
-                    .OrderBy( wi => wi.Start)
-                    .LastOrDefault();
-                var last = UpkDatabaseContext.Instance.WeekIntervals
-                    .Where(wi => to <= wi.End)
-                    .OrderBy(wi=>wi.End)
-                    .FirstOrDefault();
-                if (first == null || last == null) {
-                    return false;
-                }
-                result = UpkDatabaseContext.Instance.WeekIntervals
-                    .Where(wi => wi.End >= from)
-                    .Where(wi => wi.Start <= to)
-                    .OrderBy(wi => wi.Start)
-                    .ToArray();
-            //}
+            var first = UpkDatabaseContext.Instance.WeekIntervals
+                .Where(wi => wi.Start <= from)
+                .OrderBy(wi => wi.Start)
+                .LastOrDefault();
+            var last = UpkDatabaseContext.Instance.WeekIntervals
+                .Where(wi => to <= wi.End)
+                .OrderBy(wi => wi.End)
+                .FirstOrDefault();
+            if (first == null || last == null) {
+                return false;
+            }
+            result = UpkDatabaseContext.Instance.WeekIntervals
+                .Where(wi => wi.End >= from)
+                .Where(wi => wi.Start <= to)
+                .OrderBy(wi => wi.Start)
+                .ToArray();
             return true;
         }
         static void SaveWeekIntervalsChanges(IEnumerable<WeekInterval> weekIntervals)
