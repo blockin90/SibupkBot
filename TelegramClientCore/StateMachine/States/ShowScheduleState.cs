@@ -104,6 +104,7 @@ namespace TelegramClientCore.StateMachine.States
         /// </summary>
         private IEnumerable<string> GetScheduleAsStrings(IEnumerable<WorkDay> workDays)
         {
+            workDays = workDays.Where(wd => wd != null);
             foreach (var wd in workDays) {
                 if (wd.Lessons.Count == 0) {
                     if (StateMachineContext.UserConfig.HolidaysVisibility) {

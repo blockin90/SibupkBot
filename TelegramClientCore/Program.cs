@@ -37,8 +37,12 @@ namespace TelegramClientCore
 #if DEBUG
             Trace.Listeners.Add(new TextWriterTraceListener(Console.Out));
 #endif
+            var logsDirectory = Path.Combine(Environment.CurrentDirectory, "logs");
+            if (!Directory.Exists(logsDirectory)) {
+                Directory.CreateDirectory(logsDirectory);
+            }
             Trace.Listeners.Add(new TextWriterTraceListener(
-                new StreamWriter(Path.Combine(Environment.CurrentDirectory, $"logs/{DateTime.UtcNow:yy_MM_dd}_errors.txt"), true)));
+                new StreamWriter( $"logs{Path.DirectorySeparatorChar}{DateTime.UtcNow:yy_MM_dd}_errors.txt", true)));
             Trace.AutoFlush = true;
 
             //регистрируем поддержку кодировки win-1251

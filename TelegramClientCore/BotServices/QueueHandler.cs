@@ -9,6 +9,7 @@ using Telegram.Bot;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types.ReplyMarkups;
+using UpkServices;
 
 namespace TelegramClientCore.BotServices
 {
@@ -49,8 +50,13 @@ namespace TelegramClientCore.BotServices
 
                 Messages.TryDequeue(out Tuple<ChatId, string, IReplyMarkup, ParseMode> message);
                 //т.к. действует ограничение 30 сообщений в секунду разным пользователям, вводим искусственную задержку:
-                Thread.Sleep(_poolingInterval);                
-                Client.SendTextMessageAsync(message.Item1, message.Item2, replyMarkup: message.Item3, parseMode: message.Item4);
+                Thread.Sleep(_poolingInterval); 
+                try { 
+                    var task = Client.SendTextMessageAsync(message.Item1, message.Item2, replyMarkup: message.Item3, parseMode: message.Item4);                
+                    task.Wait(TimeSpan.FromSeconds(60));
+                } catch (Exception ex){
+                    MyTrace.WriteLine(ex.Message);
+                }
             }
         }
 
