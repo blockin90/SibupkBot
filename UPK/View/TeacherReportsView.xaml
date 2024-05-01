@@ -36,7 +36,7 @@
                         <TextBlock Text="Неучтенные занятия:" FontWeight="Bold" DockPanel.Dock="Top"  ToolTip="Занятия, для которых программа не смогла определить тип"/>
                         <DataGrid ItemsSource="{Binding UnrecordedLessons}" IsReadOnly="True" AutoGenerateColumns="False">
                             <DataGrid.Columns>
-                                <DataGridTextColumn Header="Дата" Binding="{Binding WorkDay.Date, StringFormat=dd.MM.yy}"/>
+                                <DataGridTextColumn Header="Дата" Binding="{Binding Date, StringFormat=dd.MM.yy}"/>
                                 <DataGridTextColumn Header="Время" Binding="{Binding TimeInterval}"/>
                                 <DataGridTextColumn Header="Дисциплина" Binding="{Binding Discipline}" Width="*"/>
                                 <DataGridTemplateColumn  MaxWidth="80">
