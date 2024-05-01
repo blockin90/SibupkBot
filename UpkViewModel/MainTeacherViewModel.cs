@@ -4,8 +4,10 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using UpkModel.Database;
+using UpkModel.Database.Schedule;
 using UpkServices;
 
 namespace UpkViewModel
@@ -16,7 +18,7 @@ namespace UpkViewModel
     /// <remarks>
     /// Содержит список преподавателей, ссылки на выбранного преподавателя и на активную дочернюю модель представления
     /// </remarks>
-    public class MainTeacherViewModel : INotifyPropertyChanged
+    public class MainTeacherViewModel : BaseViewModel
     {
         private IEnumerable<Teacher> _teachers;
         private Teacher _selectedTeacher;
@@ -29,6 +31,7 @@ namespace UpkViewModel
         public RelayCommand SwitchViewModelCommand { get; private set; }
 
         private bool _isEnabled = true;
+        private readonly IConfigStore _configStore;
 
         /// <summary>
         /// Состояние вью модели - true, если данные загружены и ожидается ввод пользователя, false, если идет загрузка данных
@@ -44,7 +47,7 @@ namespace UpkViewModel
         }
 
 
-        public MainTeacherViewModel()
+        public MainTeacherViewModel(IConfigStore configStore)
         {
             ReloadTeachersCommand = new RelayCommand((param) => LoadTeachers(true));
             SwitchViewModelCommand = new RelayCommand((param) =>
@@ -56,18 +59,14 @@ namespace UpkViewModel
                         CurrentViewModel = OldWm;
                         CurrentViewModel.Teacher = SelectedTeacher;
                     } else {
-                        CurrentViewModel = Activator.CreateInstance(vmType, SelectedTeacher, new EventHandler<string>(CurrentViewModel_ServiceEvent)) as BaseTeacherViewModel;
+                        CurrentViewModel = Activator.CreateInstance(vmType, SelectedTeacher, new EventHandler<string>(CurrentViewModel_ServiceEvent), _configStore) as BaseTeacherViewModel;
                         //CurrentViewModel.ServiceEvent += CurrentViewModel_ServiceEvent;
                         _childs.Add(CurrentViewModel);
                     }
                 }
             });
-            
-            LoadTeachers();
-            var lastSelection = Configs.Instance.GetData("SelectedTeacher");
-            if (lastSelection != null) {
-                SelectedTeacher = _teachers.FirstOrDefault(t => t.Id == int.Parse(lastSelection));
-            }
+            this._configStore = configStore;
+            LoadTeachers(false);
         }
 
         public BaseTeacherViewModel CurrentViewModel
@@ -116,41 +115,46 @@ namespace UpkViewModel
                     _selectedTeacher = value;
                     if (CurrentViewModel != null) {
                         CurrentViewModel.Teacher = value;
-                        //сохраняем выбор сотрудника 
-                        Configs.Instance["SelectedTeacher"] = SelectedTeacher.Id.ToString();
-                        Configs.Instance.SaveChanges();
                     }
+                    //сохраняем выбор сотрудника 
+                    _configStore["SelectedTeacher"] = SelectedTeacher.Id.ToString();
+                    _configStore.SaveChanges();
                     OnPropertyChanged();
                 }
             }
         }
 
-        void LoadTeachers(bool forceFromWeb = false)
+        public void LoadTeachers(bool forceFromWeb = false)
         {
             ServiceMessage = "Загрузка списка преподавателей...";
             Task.Run(async () =>
             {
-                try {
-                    Teachers = await (new TeachersFactory(UpkDatabaseContext.Instance, Configs.Instance)).GetTeachersAsync(forceFromWeb);
-                } catch {
-                    ServiceMessage = "Невозможно загрузить список преподавателей, ошибки сетевого соединения. Повторите попытку позже.";
-                    return;
+                var teachers = await (new TeachersFactory(UpkDatabaseContext.Instance)).GetTeachersAsync(forceFromWeb);
+                InvokeOnMainThread(() => Teachers = teachers);
+            }).ContinueWith(taskResult =>
+            {
+                if (taskResult.Exception != null) {
+                    InvokeOnMainThread(() => ServiceMessage = $"Не удалось загрузить список преподавателей: {taskResult.Exception}");
+                } else {
+                    InvokeOnMainThread(() => ServiceMessage = string.Empty);
+                    if (SelectedTeacher == null) {
+                        var lastSelection = _configStore.GetDataAsString("SelectedTeacher");
+                        if (lastSelection != null) {
+                            InvokeOnMainThread(() => SelectedTeacher = _teachers.FirstOrDefault(t => t.Id == int.Parse(lastSelection)));
+                        }
+                    }
                 }
-                ServiceMessage = String.Empty;
+            }).ContinueWith( taskResult =>
+            {
+                var scheduleViewModel =  new TeacherScheduleViewModel(SelectedTeacher, new EventHandler<string>(CurrentViewModel_ServiceEvent), _configStore);
+                InvokeOnMainThread(() => CurrentViewModel = scheduleViewModel);
+                _childs.Add(CurrentViewModel);
             });
-
-
         }
 
         private void CurrentViewModel_ServiceEvent(object sender, string e)
         {
             ServiceMessage = e;
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged([CallerMemberName] string prop = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
         }
     }
 }

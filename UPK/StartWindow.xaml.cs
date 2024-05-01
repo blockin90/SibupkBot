@@ -18,6 +18,8 @@ using UpkModel.Database;
 using UpkServices;
 using UPK.Services;
 using UpkServices.UI;
+using UpkModel.Database.Schedule;
+using System.Threading;
 
 namespace SupkServices
 {
@@ -33,16 +35,15 @@ namespace SupkServices
             ServiceProvider.RegisterService(typeof(IFileDialogService), typeof(WpfFileDialogService));
             ServiceProvider.RegisterService(typeof(IMessageService), new WpfMessageService());
 
-            DataContext = new MainTeacherViewModel();
         }
-        
+
         #region Top menu button handlers
         private void WindowHeader_MouseDown(object sender, MouseButtonEventArgs e)
         {
             DragMove();
         }
-        
-        private void MaximizeRestore_Click(object sender,  RoutedEventArgs e)
+
+        private void MaximizeRestore_Click(object sender, RoutedEventArgs e)
         {
             this.WindowState = this.WindowState == WindowState.Maximized ? WindowState.Normal : WindowState.Maximized;
         }
@@ -57,5 +58,11 @@ namespace SupkServices
             Environment.Exit(0);
         }
         #endregion
+
+        private async void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            DbStoredConfigs dbStoredConfigs = new DbStoredConfigs(UpkDatabaseContext.Instance);
+            DataContext = new MainTeacherViewModel(dbStoredConfigs);
+        }
     }
 }

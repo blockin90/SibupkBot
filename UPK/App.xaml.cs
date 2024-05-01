@@ -7,6 +7,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Text;
 
 namespace UPK
 {
@@ -17,6 +18,7 @@ namespace UPK
     {
         static App()
         {
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
         }
     }
 }

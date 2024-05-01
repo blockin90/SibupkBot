@@ -22,14 +22,14 @@ namespace UpkServices.Web
         public static string SendWebRequest(string url, string postData = "")
         {
             //через MakeWebRequest(..) делаем запрос и тут же запрашиваем ответ
-            using (WebResponse resp = MakeWebRequest(url, postData).GetResponse())
+            using (WebResponse resp = CewateWebRequest(url, postData).GetResponse())
             using (Stream stream = resp.GetResponseStream()) {
                 using (StreamReader sr = new StreamReader(stream)) {
                     return sr.ReadToEnd();
                 }
             }
         }
-        private static WebRequest MakeWebRequest(string url, string postData )
+        private static WebRequest CewateWebRequest(string url, string postData )
         {
             WebRequest request = WebRequest.CreateHttp(url);
             request.Timeout = Timeout;
@@ -49,6 +49,5 @@ namespace UpkServices.Web
                 stream.Write(data, 0, data.Length);
             }
         }
-
     }
 }

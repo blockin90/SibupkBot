@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UpkModel;
 using UpkModel.Database;
+using UpkModel.Database.Schedule;
 using UpkServices;
 using UpkServices.UI;
 
@@ -12,10 +13,10 @@ namespace UpkViewModel.TeacherReport
 {
     public class TeacherReportsViewModel : BaseTeacherViewModel
     {
-        public TeacherReportsViewModel(Teacher teacher) : this(teacher,null)
+        public TeacherReportsViewModel(Teacher teacher, IConfigStore configStore) : this(teacher,null, configStore)
         {
         }
-        public TeacherReportsViewModel(Teacher teacher, EventHandler<string> defaultEventHandler) : base(teacher,defaultEventHandler)
+        public TeacherReportsViewModel(Teacher teacher, EventHandler<string> defaultEventHandler, IConfigStore configStore) : base(teacher,defaultEventHandler)
         {
             MakeHourReportCommand = new RelayCommand((param) => {
                 var fileService = ServiceProvider.GetService<IFileDialogService>() as IFileDialogService;
@@ -170,7 +171,7 @@ namespace UpkViewModel.TeacherReport
                     PracticsCount = HoursInLesson * queryResult.Count(l => l.LessonType == LessonType.Practical);
                     ConsultationsCount = queryResult.Count(l => l.LessonType == LessonType.Consultation);
                     UnrecordedLessons = queryResult.Where(l => l.LessonType == LessonType.Unknown)
-                        .OrderBy(l => l.WorkDay.Date)
+                        .OrderBy(l => l.Date)
                         .ThenBy(l => l.LessonNum)
                         .ToArray();
                 });
@@ -199,7 +200,7 @@ namespace UpkViewModel.TeacherReport
 
         IEnumerable<Lesson> LoadLessons()
         {
-            var loaderFactory = new TeacherWorkDaysLoaderFactory(UpkDatabaseContext.Instance, Configs.Instance);
+            var loaderFactory = new TeacherWorkDaysLoaderFactory(UpkDatabaseContext.Instance);
             GetDateIntervalFromMonth(SelectedMonthNum + 1, out DateTime firstDate, out DateTime lastDate);
             var loader = loaderFactory.GetLoader(Teacher, firstDate, lastDate);
             return loader.Load().SelectMany(wd => wd.Lessons).ToArray();

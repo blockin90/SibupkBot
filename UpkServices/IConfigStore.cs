@@ -1,6 +1,6 @@
 ﻿namespace UpkServices
 {
-    public interface IConfig
+    public interface IConfigStore
     {
         string GetDataAsString(string name);
         void SetDataAsString(string name, string value);

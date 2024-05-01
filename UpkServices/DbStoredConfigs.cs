@@ -7,7 +7,7 @@ namespace UpkServices
     /// <summary>
     /// Настройки приложения
     /// </summary>
-    public class DbStoredConfigs : IConfig
+    public class DbStoredConfigs : IConfigStore
     {
         public DbStoredConfigs(UpkDatabaseContext databaseContext)
         {

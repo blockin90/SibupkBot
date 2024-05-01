@@ -5,7 +5,7 @@ VisualStudioVersion = 17.0.31825.309
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UpkModel", "Model\UpkModel.csproj", "{E140345C-36B8-4FFF-9D15-DE2C1D7FAF72}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UpkDesktopClient", "UPK\UpkDesktopClient.csproj", "{7663174A-24EB-432F-91E1-8FE260AFB6B6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UpkDesktopClient", "UPK\UpkDesktopClient.csproj", "{7663174A-24EB-432F-91E1-8FE260AFB6B6}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UpkTelegramClient", "TelegramClientCore\UpkTelegramClient.csproj", "{29176F91-D16C-4988-AD33-C86436CC4D9D}"
 EndProject

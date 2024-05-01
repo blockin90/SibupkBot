@@ -31,18 +31,18 @@ namespace UpkServices
             if( forceFromWeb || !_database.Teachers.Any()) {
                 LoadFromWeb();
             }
-            return _database.Teachers.Include(t => t.Department).AsNoTracking().OrderBy( t => t.FIO).ToArray();
+            return _database.Teachers.AsNoTracking().Include(t => t.Department).OrderBy( t => t.FIO).ToArray();
         }
         /// <summary>
         /// Асинхронная загрузка списка преподавателей, если возможно - из локальной БД, иначе - с сайта СибУПК
         /// </summary>
         /// <param name="force">Принудительная загрузка с сайта СибУПК</param>
-        public async Task<Teacher[]> GetTeachersAsync(bool forceFromWeb = false)
+        public Task<Teacher[]> GetTeachersAsync(bool forceFromWeb = false)
         {
             if (forceFromWeb || !  _database.Teachers.Any()) {
-                await Task.Run(() => GetTeachers(forceFromWeb));
+                return Task.Run( ()=> GetTeachers(forceFromWeb) );
             }
-            return _database.Teachers.AsNoTracking().OrderBy(t => t.FIO).ToArray();
+            return _database.Teachers.AsNoTracking().OrderBy(t => t.FIO).ToArrayAsync();
         }
         private void LoadFromWeb()
         {

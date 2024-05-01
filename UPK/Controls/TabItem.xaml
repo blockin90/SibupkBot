@@ -24,15 +24,17 @@
         </Style>
     </UserControl.Resources>
 
-    <RadioButton x:Name="rBtn"
-                 Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=local:TabItem}, Path=Command}" 
-                 CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:TabItem},Path=CommandParameter}">
-        <RadioButton.Template>
-            <ControlTemplate>
-                <Border Style="{StaticResource SelectableBorderStyle}">
-                    <TextBlock x:Name="tbTabHeader" VerticalAlignment="Center" Text="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=local:TabItem}, Path=Header}" Margin="4"/>
-                </Border>
-            </ControlTemplate>
-        </RadioButton.Template>
-    </RadioButton>
+    <Border BorderBrush="Gray" BorderThickness="0.5">
+        <RadioButton x:Name="rBtn"
+                     Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=local:TabItem}, Path=Command}" 
+                     CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:TabItem},Path=CommandParameter}">
+            <RadioButton.Template>
+                <ControlTemplate>
+                    <Border Style="{StaticResource SelectableBorderStyle}">
+                        <TextBlock x:Name="tbTabHeader" VerticalAlignment="Center" Text="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=local:TabItem}, Path=Header}" Margin="4"/>
+                    </Border>
+                </ControlTemplate>
+            </RadioButton.Template>
+        </RadioButton>
+    </Border>
 </UserControl>

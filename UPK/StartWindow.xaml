@@ -11,6 +11,7 @@
         Title="StartWindow" Height="300" Width="600" MinWidth="300" MinHeight="300"
         WindowStyle="None"  WindowState="Maximized"
         MaxHeight="{DynamicResource {x:Static SystemParameters.MaximizedPrimaryScreenHeightKey}}" 
+        Loaded="Window_Loaded"
         >
     <Window.Resources>
         <RoutedUICommand x:Key="DoubleClickCommand"/>

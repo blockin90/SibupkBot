@@ -10,6 +10,7 @@ using System.Diagnostics;
 using UpkServices;
 using UpkModel.Database;
 using UpkModel;
+using UpkModel.Database.Schedule;
 
 namespace UpkViewModel
 {
@@ -28,6 +29,7 @@ namespace UpkViewModel
         /// Показывать окна в расписании?
         /// </summary>
         bool _isEmptyLessonsVisible;
+        private readonly IConfigStore _configStore;
 
         #region Properties
         /// <summary>
@@ -63,8 +65,8 @@ namespace UpkViewModel
                     ScheduleView = Schedule;
                 }
                 _isEmptyLessonsVisible = value;
-                Configs.Instance["IsEmptyLessonsVisible"] = value.ToString();
-                Configs.Instance.SaveChanges();
+                _configStore["IsEmptyLessonsVisible"] = value.ToString();
+                _configStore.SaveChanges();
             }
         }
         /// <summary>
@@ -99,9 +101,9 @@ namespace UpkViewModel
                     LoadSchedule();
                     //Task.Run(() => LoadSchedule());
                 }
-                Configs.Instance["TeacherFirstDate"] = _selectedDates.First().ToShortDateString();
-                Configs.Instance["TeacherLastDate"] = _selectedDates.Last().ToShortDateString();
-                Configs.Instance.SaveChanges();
+                _configStore["TeacherFirstDate"] = _selectedDates.First().ToShortDateString();
+                _configStore["TeacherLastDate"] = _selectedDates.Last().ToShortDateString();
+                _configStore.SaveChanges();
                 OnPropertyChanged();
             }
         }
@@ -120,22 +122,22 @@ namespace UpkViewModel
         }
         #endregion
 
-        public TeacherScheduleViewModel(Teacher teacher)
-            : this(teacher,null)
-        {
-        }
-        public TeacherScheduleViewModel(Teacher teacher,EventHandler<string> defaultEventHandler)
+        public TeacherScheduleViewModel(Teacher teacher,EventHandler<string> defaultEventHandler, IConfigStore configStore)
             : base(teacher, defaultEventHandler)
         {
+            if(configStore == null) {
+                throw new ArgumentNullException(nameof(configStore));
+            }
+            _configStore = configStore;
             try {
                 SelectedDates = new[] {
-                    DateTime.Parse( Configs.Instance["TeacherFirstDate"]),
-                    DateTime.Parse( Configs.Instance["TeacherLastDate"])
+                    DateTime.Parse( _configStore["TeacherFirstDate"]),
+                    DateTime.Parse( _configStore["TeacherLastDate"])
                 };
             } catch {
                 SelectedDates = new[] { DateTime.Today, DateTime.Today.AddDays(7) };
             }
-            var emptyLessVisibility = Configs.Instance["IsEmptyLessonsVisible"];
+            var emptyLessVisibility = _configStore["IsEmptyLessonsVisible"];
             if ( !String.IsNullOrEmpty( emptyLessVisibility)) {
                 IsEmptyLessonsVisible = bool.Parse(emptyLessVisibility);
             }
@@ -147,7 +149,7 @@ namespace UpkViewModel
                 RaiseServiceEvent("Загрузка расписания...");
                 Schedule = null;
                 try {
-                    var loaderFactory = new TeacherWorkDaysLoaderFactory(UpkDatabaseContext.Instance, Configs.Instance);
+                    var loaderFactory = new TeacherWorkDaysLoaderFactory(UpkDatabaseContext.Instance);
                     var loader = loaderFactory.GetLoader(Teacher, SelectedDates.First(), SelectedDates.Last());
                     Schedule = await loader.LoadAsync();
                 } catch (TimeoutException) {   //ошибки соединения
@@ -169,7 +171,7 @@ namespace UpkViewModel
 
         WorkDay AddEmptyLessonsToWorkDay(WorkDay workDay)
         {
-            WorkDay wd = workDay.Copy();
+            WorkDay wd = workDay;
             var result = new List<Lesson>(GetLessonsCount(wd));
             for (int i = 0; i < wd.Lessons.Count - 1; i++) {
                 /*последовательно перебираем пары, как только разница между номером текущей и 
