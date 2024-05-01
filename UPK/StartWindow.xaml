@@ -91,7 +91,9 @@
             <!--todo:почему не отображаются названия в конструкторе(???)-->
             <controls:TabItem Header="Расписание" GroupName="tabItem" 
                               Command="{Binding SwitchViewModelCommand}" 
-                              CommandParameter="{x:Type viewmodels:TeacherScheduleViewModel}" />
+                              CommandParameter="{x:Type viewmodels:TeacherScheduleViewModel}" 
+                              IsSelected="True"
+                              />
             <controls:TabItem Header="Отчет по нагрузке" GroupName="tabItem"
                               Command="{Binding SwitchViewModelCommand}" 
                               CommandParameter="{x:Type reports:TeacherReportsViewModel}"/>

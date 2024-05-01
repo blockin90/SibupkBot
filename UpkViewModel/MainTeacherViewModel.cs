@@ -146,7 +146,7 @@ namespace UpkViewModel
                 }
             }).ContinueWith( taskResult =>
             {
-                var scheduleViewModel =  new TeacherScheduleViewModel(SelectedTeacher, new EventHandler<string>(CurrentViewModel_ServiceEvent), _configStore);
+                var scheduleViewModel = new TeacherScheduleViewModel(SelectedTeacher, new EventHandler<string>(CurrentViewModel_ServiceEvent), _configStore);
                 InvokeOnMainThread(() => CurrentViewModel = scheduleViewModel);
                 _childs.Add(CurrentViewModel);
             });
