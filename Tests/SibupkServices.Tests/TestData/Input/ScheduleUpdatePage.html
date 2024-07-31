@@ -1,0 +1,920 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Расписание занятий</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="icon" href="/bitrix/templates/modern_red_s1/favicon.png">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="//fonts.googleapis.com/css?family=PT+Sans:400,700,400italic,700italic|PT+Serif+Caption:400,400italic&amp;subset=latin,cyrillic" rel="stylesheet">
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="robots" content="index, follow" />
+	<meta name="keywords" content="факультеты, специальность, преподаватели" />
+	<meta name="description" content="Нести в мир знания и опыт, позволяющие личности, обществу и государству видеть и использовать лучшие образцы подготовки высококвалифицированных специалистов и эффективной реализации нововведений в сфере высшего образования." />
+	<link href="/bitrix/js/ui/design-tokens/dist/ui.design-tokens.min.css?171954293823463" type="text/css" rel="stylesheet" />
+	<link href="/bitrix/cache/css/s1/modern_red_s1/template_2fa545c7d1a48dc3e12f09141cd6d20a/template_2fa545c7d1a48dc3e12f09141cd6d20a_v1.css?1722237828218154" type="text/css" data-template-style="true" rel="stylesheet" />
+	<link href="/bitrix/panel/main/popup.min.css?170612477420774" type="text/css" data-template-style="true" rel="stylesheet" />
+	<script>if(!window.BX)window.BX={};if(!window.BX.message)window.BX.message=function(mess){if(typeof mess==='object'){for(let i in mess) {BX.message[i]=mess[i];} return true;}};</script>
+	<script>(window.BX||top.BX).message({"JS_CORE_LOADING":"Загрузка...","JS_CORE_NO_DATA":"- Нет данных -","JS_CORE_WINDOW_CLOSE":"Закрыть","JS_CORE_WINDOW_EXPAND":"Развернуть","JS_CORE_WINDOW_NARROW":"Свернуть в окно","JS_CORE_WINDOW_SAVE":"Сохранить","JS_CORE_WINDOW_CANCEL":"Отменить","JS_CORE_WINDOW_CONTINUE":"Продолжить","JS_CORE_H":"ч","JS_CORE_M":"м","JS_CORE_S":"с","JSADM_AI_HIDE_EXTRA":"Скрыть лишние","JSADM_AI_ALL_NOTIF":"Показать все","JSADM_AUTH_REQ":"Требуется авторизация!","JS_CORE_WINDOW_AUTH":"Войти","JS_CORE_IMAGE_FULL":"Полный размер"});</script>
+
+	<script src="/bitrix/js/main/core/core.min.js?1719542964225422"></script>
+
+	<script>BX.Runtime.registerExtension({"name":"main.core","namespace":"BX","loaded":true});</script>
+	<script>
+BX.setJSList(["\/bitrix\/js\/main\/core\/core_ajax.js","\/bitrix\/js\/main\/core\/core_promise.js","\/bitrix\/js\/main\/polyfill\/promise\/js\/promise.js","\/bitrix\/js\/main\/loadext\/loadext.js","\/bitrix\/js\/main\/loadext\/extension.js","\/bitrix\/js\/main\/polyfill\/promise\/js\/promise.js","\/bitrix\/js\/main\/polyfill\/find\/js\/find.js","\/bitrix\/js\/main\/polyfill\/includes\/js\/includes.js","\/bitrix\/js\/main\/polyfill\/matches\/js\/matches.js","\/bitrix\/js\/ui\/polyfill\/closest\/js\/closest.js","\/bitrix\/js\/main\/polyfill\/fill\/main.polyfill.fill.js","\/bitrix\/js\/main\/polyfill\/find\/js\/find.js","\/bitrix\/js\/main\/polyfill\/matches\/js\/matches.js","\/bitrix\/js\/main\/polyfill\/core\/dist\/polyfill.bundle.js","\/bitrix\/js\/main\/core\/core.js","\/bitrix\/js\/main\/polyfill\/intersectionobserver\/js\/intersectionobserver.js","\/bitrix\/js\/main\/lazyload\/dist\/lazyload.bundle.js","\/bitrix\/js\/main\/polyfill\/core\/dist\/polyfill.bundle.js","\/bitrix\/js\/main\/parambag\/dist\/parambag.bundle.js"]);
+	</script>
+	<script>BX.Runtime.registerExtension({"name":"ui.design-tokens","namespace":"window","loaded":true});</script>
+	<script>BX.Runtime.registerExtension({"name":"main.pageobject","namespace":"window","loaded":true});</script>
+	<script>(window.BX||top.BX).message({"JS_CORE_LOADING":"Загрузка...","JS_CORE_NO_DATA":"- Нет данных -","JS_CORE_WINDOW_CLOSE":"Закрыть","JS_CORE_WINDOW_EXPAND":"Развернуть","JS_CORE_WINDOW_NARROW":"Свернуть в окно","JS_CORE_WINDOW_SAVE":"Сохранить","JS_CORE_WINDOW_CANCEL":"Отменить","JS_CORE_WINDOW_CONTINUE":"Продолжить","JS_CORE_H":"ч","JS_CORE_M":"м","JS_CORE_S":"с","JSADM_AI_HIDE_EXTRA":"Скрыть лишние","JSADM_AI_ALL_NOTIF":"Показать все","JSADM_AUTH_REQ":"Требуется авторизация!","JS_CORE_WINDOW_AUTH":"Войти","JS_CORE_IMAGE_FULL":"Полный размер"});</script>
+	<script>BX.Runtime.registerExtension({"name":"window","namespace":"window","loaded":true});</script>
+	<script>(window.BX||top.BX).message({"LANGUAGE_ID":"ru","FORMAT_DATE":"DD.MM.YYYY","FORMAT_DATETIME":"DD.MM.YYYY HH:MI:SS","COOKIE_PREFIX":"BITRIX_SM","SERVER_TZ_OFFSET":"10800","UTF_MODE":"Y","SITE_ID":"s1","SITE_DIR":"\/","USER_ID":"","SERVER_TIME":1722440832,"USER_TZ_OFFSET":0,"USER_TZ_AUTO":"Y","bitrix_sessid":"cefcc0f07bc7cd49d24aef2cd572477a"});</script>
+
+
+	<script src="/bitrix/cache/js/s1/modern_red_s1/kernel_main/kernel_main_v1.js?1722237869145523"></script>
+	<script>BX.setJSList(["\/bitrix\/js\/main\/pageobject\/pageobject.js","\/bitrix\/js\/main\/core\/core_window.js","\/bitrix\/js\/main\/session.js","\/bitrix\/js\/main\/date\/main.date.js","\/bitrix\/js\/main\/core\/core_date.js","\/bitrix\/js\/main\/utils.js","\/bitrix\/templates\/modern_red_s1\/js\/jquery.formstyler.min.js","\/bitrix\/templates\/modern_red_s1\/js\/jquery.magnificpopup.min.js","\/bitrix\/templates\/modern_red_s1\/js\/jquery.cookie.min.js","\/bitrix\/templates\/modern_red_s1\/js\/jquery.matchHeight-min.js","\/bitrix\/templates\/modern_red_s1\/js\/jquery.mobileNav.js","\/bitrix\/templates\/modern_red_s1\/js\/owl.carousel.min.js","\/bitrix\/templates\/modern_red_s1\/js\/perfect-scrollbar.jquery.min.js","\/bitrix\/templates\/modern_red_s1\/js\/jquery.shorten.js","\/bitrix\/templates\/modern_red_s1\/js\/main.js","\/bitrix\/templates\/modern_red_s1\/js\/special_version.js","\/bitrix\/components\/bitrix\/search.title\/script.js"]);</script>
+	<script>BX.setCSSList(["\/bitrix\/templates\/modern_red_s1\/components\/bitrix\/search.title\/modern_search\/style.css","\/bitrix\/templates\/modern_red_s1\/template_styles.css","\/bitrix\/templates\/modern_red_s1\/special_version.css"]);</script>
+
+
+	<script src="/bitrix/cache/js/s1/modern_red_s1/template_71aec00697dfe24e5806d48e9aff6c67/template_71aec00697dfe24e5806d48e9aff6c67_v1.js?1722237828137202"></script>
+	<script>var _ba = _ba || []; _ba.push(["aid", "fbef296d7d5efe60517440863bbf6a60"]); _ba.push(["host", "www.sibupk.su"]); (function() {var ba = document.createElement("script"); ba.type = "text/javascript"; ba.async = true;ba.src = (document.location.protocol == "https:" ? "https://" : "http://") + "bitrix.info/ba.js";var s = document.getElementsByTagName("script")[0];s.parentNode.insertBefore(ba, s);})();</script>
+
+
+</head>
+
+<body>
+	<div class="mb-hide"></div>
+	<div class="body-wrapper clearfix">
+		<div class="special-settings">
+			<div class="container special-panel-container">
+				<div class="content">
+					<div class="aa-block aaFontsize">
+						<div class="fl-l">Размер:</div>
+						<a class="aaFontsize-small" data-aa-fontsize="small" href="#" title="Уменьшенный размер шрифта">A</a>
+						<a class="aaFontsize-normal a-current" href="#" data-aa-fontsize="normal" title="Нормальный размер шрифта">A</a>
+						<a class="aaFontsize-big" data-aa-fontsize="big" href="#" title="Увеличенный размер шрифта">A</a>
+					</div>
+					<div class="aa-block aaColor">
+						Цвет:
+						<a class="aaColor-black a-current" data-aa-color="black" href="#" title="Черным по белому"><span>C</span></a>
+						<a class="aaColor-yellow" data-aa-color="yellow" href="#" title="Желтым по черному"><span>C</span></a>
+						<a class="aaColor-blue" data-aa-color="blue" href="#" title="Синим по голубому"><span>C</span></a>
+					</div>
+
+					<div class="aa-block aaImage">
+						Изображения
+						<span class="aaImage-wrapper">
+							<a class="aaImage-on a-current" data-aa-image="on" href="#">Вкл.</a>
+							<a class="aaImage-off" data-aa-image="off" href="#">Выкл.</a>
+						</span>
+					</div>
+					<span class="aa-block"><a href="/?set-aa=normal" data-aa-off><i class="icon icon-special-version"></i> Обычная версия сайта</a></span>
+				</div>
+			</div>
+		</div>
+
+		<header>
+			<div class="container container-top-header">
+				<div class="content">
+					<div class="col col-mb-12">
+						<span class="mb-hide">
+							<a href="/about_the_university/offices/"><i class="icon icon-map-marker"></i> Найти ближайший филиал</a>
+							<span class="aa-hide" itemprop="Copy"><a class="fl-r" href="/?set-aa=special" data-aa-on title="Aa"><i class="icon icon-special-version"></i><span class="hide">Версия для слабовидящих</span></a></span>
+							<span class="aa-hide" itemprop="Copy">
+								<a class="fl-r" href="http://sibupk.tilda.ws/english" title="Английская версия сайта">
+									<i class="icon icon-eng"></i>
+									<span class="hide"></span>
+								</a>
+							</span>
+						</span>
+						<span class="tablet-hide dt-hide ld-hide">
+							<span class="aa-hide" itemprop="Copy"><a class="fl-r mr50" href="/?set-aa=special" data-aa-on><i class="icon icon-special-version"></i><span class="hide">Версия для слабовидящих</span></a></span>
+						</span>
+					</div>
+				</div>
+			</div>
+
+			<div class="container container-white pt10 pb10">
+				<div class="content">
+					<div class="col col-mb-12 col-12 col-dt-7">
+						<div class="logo-block">
+							<a href="/" class="logo">
+								<!-- <img src="/include/logo.png"> -->
+								<!-- <img src="/include/logo_3.png"> -->
+								<img src="/include/logo_3.png" style="position: relative; top: -50px;">
+							</a>
+							<a href="/">
+								<span class="h1">
+									Сибирский университет потребительской кооперации (СибУПК)<br><small>
+										<br>
+										<div style="width: 580px;">
+											<!--  <span style="color: #626262; font-weight: bold;">БУХГАЛТЕРИЯ (ПО ВОПРОСАМ ОПЛАТЫ):&nbsp; +7-913-914-18-38; +7 (383) 346-54-25 </span>
+											<br>
+											<span style="color: #f16c4d;">
+												Информация о приеме заявлений от граждан Украины, Донецкой и Луганской народных республик
+											</span> -->
+											<!-- <br><hr>
+											  <img width="580" src="/include/gu.jpg" height="119" onclick="window.open('https://www.gosuslugi.ru/vuzonline')">
+											<br><hr> -->
+											<img src="/upload/medialibrary/b1a/u8crxebhbutsvxp2gwdfz1q4er40ab18/00002.png" alt="" onclick="window.open('http://lk.sibupk.su:6789/rector')" title="">
+										</div>
+									</small>
+								</span>
+							</a>
+						</div>
+					</div>
+					<div class="col col-mb-12 col-12 col-dt-5">
+						<!-- <div class="header-info-block mb-hide">
+							<i class="icon icon-big-clock"></i>
+							<div class="ov-h">
+								<a href="/about_the_university/offices/341/">Сибирский университет потребительской кооперации (СибУПК)</a>
+								<br>для работников и обучающихся с 6-30 до 22-00 часов, для посетителей с 9-00 до 17-00 часов        </div>
+						</div>
+						<div class="header-info-block">
+							<i class="icon icon-big-phone"></i>
+							<div class="ov-h">
+								Приемная комиссия: +7(383) 346-58-52, +79137030522; Бухгалтерия (по вопросам оплаты): +7 (383) 346-54-25, +79139141838            <p class="tablet-hide dt-hide ld-hide"><a href="/about_the_university/offices/341/">Сибирский университет потребительской кооперации (СибУПК)</a></p>
+							</div>
+						</div> -->
+
+						<div class="header-info-block" style="line-height: 30px; width: 175px; margin-right: 20px;">
+							<i class="icon icon-big-phone"></i>
+							<div class="ov-h">
+								Приемная комиссия: +7(383) 346-58-52, +79137030522; Бухгалтерия (по вопросам оплаты): +7 (383) 346-54-25, +79139141838            <p class="tablet-hide dt-hide ld-hide">
+									<a href="/about_the_university/offices/341/">
+										Сибирский университет потребительской кооперации (СибУПК)
+									</a>
+								</p>
+							</div>
+						</div>
+
+						<div class="header-info-block mb-hide" style="width: 230px;">
+							<i class="icon icon-big-clock"></i>
+							<div class="ov-h">
+								<a href="/about_the_university/offices/341/">Сибирский университет потребительской кооперации (СибУПК)</a>
+								<br>для работников и обучающихся с 6-30 до 22-00 часов, для посетителей с 9-00 до 17-00 часов
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="container container-top-navigation">
+				<div class="content">
+					<div class="col col-mb-hide col-12">
+						<div class="top-nav-block">
+
+							<ul>
+								<li class="parent">
+									<a tabindex="1" href="/about_the_university/">Университет</a>
+									<div class="second-level container">
+										<div class="content">
+											<div class="col col-mb-12">
+												<div class="content">
+													<ul class="clearfix">
+														<li><a href="/sveden">Сведения об образовательной организации</a></li>
+														<li><a href="/about_the_university/VSOKO">Внутренняя система оценки качества образования (ВСОКО)</a></li>
+														<li><a href="/about_the_university/management/">Руководство</a></li>
+														<li><a href="https://sibupk.sharepoint.com/sibupk">Портал для сотрудников</a></li>
+														<li><a href="/about_the_university/news/">Новости</a></li>
+														<li><a href="/about_the_university/academic_council/">Ученый совет</a></li>
+														<li><a href="/about_the_university/calendar.php">Календарь событий</a></li>
+														<li><a href="/about_the_university/library/">Информационно-библиотечный центр</a></li>
+														<li><a href="/about_the_university/structure/">Факультеты и кафедры</a></li>
+														<li><a href="/about_the_university/history.php">История</a></li>
+														<li><a href="/about_the_university/various">Разное</a></li>
+														<li><a href="/about_the_university/depts/">Подразделения</a></li>
+														<li><a href="https://sites.google.com/view/museum-sibupk">Виртуальный музей</a></li>
+														<li><a href="/about_the_university/offices/">Филиалы</a></li>
+														<li><a href="http://sibupk.tilda.ws/partners">Региональная сеть</a></li>
+														<li><a href="/about_the_university/1vyp">Наши выпускники</a></li>
+													</ul>
+												</div>
+											</div>
+										</div>
+									</div>
+								</li>
+								<li class="parent">
+									<a tabindex="1" href="/abitur/">Абитуриентам</a>
+									<div class="second-level container">
+										<div class="content">
+											<div class="col col-mb-12">
+												<div class="content">
+													<ul class="clearfix">
+														<li><a href="/abitur/">Приемная кампания 2024</a></li>
+														<li><a href="/abitur/sprav">Справочник абитуриента</a></li>
+														<li><a href="https://lk.sibupk.su">Личный кабинет абитуриента</a></li>
+														<li><a href="/abitur/neighbor.php">Иностранным абитуриентам</a></li>
+														<li><a href="/abitur/target.php">Прием на целевое обучение</a></li>
+														<li><a href="/about_the_university/notifies/2060/">Олимпиада "Стань магистром!"</a></li>
+														<li><a href="/about_the_university/notifies/2084/">Олимпиада "Яркая жизнь"</a></li>
+													</ul>
+												</div>
+											</div>
+										</div>
+									</div>
+								</li>
+								<li class="parent">
+									<a tabindex="1" href="/students/">Студентам</a>
+									<div class="second-level container">
+										<div class="content">
+											<div class="col col-mb-12">
+												<div class="content">
+													<ul class="clearfix">
+														<li><a href="/students/raspis">Расписание занятий</a></li>
+														<li><a href="/students/stoimost.php">Оплата обучения</a></li>
+														<li><a href="/portal">Электронный кабинет</a></li>
+														<li><a href="http://old.sibupk.su/services/std/login.php">Электронная зачетка</a></li>
+														<li><a href="/students/vstud/">Воспитательная работа и молодежная политика</a></li>
+														<li><a href="/sport">Спортивная жизнь</a></li>
+														<li><a href="http://sibupk.tilda.ws/career">Практика и трудоустройство</a></li>
+														<li><a href="/students/shtab/">Штаб студенческих отрядов</a></li>
+														<li><a href="https://sites.google.com/view/spupk/">Справочник студента</a></li>
+														<li><a href="http://lk.sibupk.su:5350">Анкетирование по преподавателям</a></li>
+														<li><a href="/students/hostel/">Информация об общежитиях</a></li>
+														<li><a href="/students/FLC">Центр финансовой грамотности</a></li>
+													</ul>
+												</div>
+											</div>
+										</div>
+									</div>
+								</li>
+								<li><a href="http://sibupk.tilda.ws/college">Колледж</a></li>
+								<li><a href="http://dpo.sibupk.su">Дополнительное образование</a></li>
+								<li class="parent">
+									<a tabindex="1" href="/science/">Наука</a>
+									<div class="second-level container">
+										<div class="content">
+											<div class="col col-mb-12">
+												<div class="content">
+													<ul class="clearfix">
+														<li><a href="/science/scienceorg/">Отдел магистратуры и аспирантуры</a></li>
+														<li><a href="/science/nir/">Отдел координации НИР</a></li>
+														<li><a href="/science/spn/">Совет по науке</a></li>
+														<li><a href="/science/projwork/">Отдел проектной работы</a></li>
+														<li><a href="/science/vestnik">Научно-теоретический журнал "Вестник СибУПК"</a></li>
+														<li><a href="/science/neworg/">Предстоящие научные мероприятия</a></li>
+														<li><a href="/science/fsj/">Рекомендуемые научные журналы</a></li>
+														<li><a href="/science/grants/">Гранты</a></li>
+														<li><a href="/science/scnapr/">Научные школы</a></li>
+														<li><a href="/science/research">Сборники конференций</a></li>
+														<li><a href="/science/sno/">Студенческое научное объединение</a></li>
+														<li><a href="/science/sau/">Национальный проект «Наука и университеты»</a></li>
+													</ul>
+												</div>
+											</div>
+										</div>
+									</div>
+								</li>
+								<li><a href="/about_the_university/VSOKO">ВСОКО</a></li>
+								<li><a href="/portal/eios.php">ЭИОС</a></li>
+								<li><a href="http://sibupk.tilda.ws/distance">Дистанционное обучение</a></li>
+								<li><a href="http://sibupk.tilda.ws/international">Международное сотрудничество</a></li>
+								<li><a href="/contacts/">Контакты</a></li>
+							</ul>
+						</div>
+						<div class="search-block fl-r">
+							<div class="search-button" tabindex="1"><i class="icon icon-search"></i></div>
+							<div class="container container-search">
+								<div class="content">
+									<div class="col col-mb-12" id="searchTitle">
+										<form action="/search/index.php">
+											<div class="search-form-block">
+												<i class="icon icon-search-white"></i>
+												<div class="search-close-button" tabindex="1"><i class="icon icon-close"></i></div>
+												<div class="ov-h">
+													<input id="title-search-input" class="search-input" type="text" name="q" autocomplete="off">
+												</div>
+											</div>
+										</form>
+										<div class="search-suggestions">
+										</div>
+									</div> <!-- .col col-mb-12 -->
+								</div> <!-- .content -->
+							</div> <!-- .container container-search -->
+						</div>
+						<script>
+
+function JCTitleSearchModern(arParams)
+{
+	var _this = this;
+
+	this.arParams = {
+		'AJAX_PAGE': arParams.AJAX_PAGE,
+		'CONTAINER_ID': arParams.CONTAINER_ID,
+		'INPUT_ID': arParams.INPUT_ID,
+		'MIN_QUERY_LEN': parseInt(arParams.MIN_QUERY_LEN)
+	};
+	if(arParams.WAIT_IMAGE)
+		this.arParams.WAIT_IMAGE = arParams.WAIT_IMAGE;
+	if(arParams.MIN_QUERY_LEN <= 0)
+		arParams.MIN_QUERY_LEN = 1;
+
+	this.cache = [];
+	this.cache_key = null;
+
+	this.startText = '';
+	this.currentRow = -1;
+	this.RESULT = null;
+	this.CONTAINER = null;
+	this.INPUT = null;
+	this.WAIT = null;
+
+	this.ShowResult = function(result)
+	{
+		var suggestions = document.getElementsByClassName('search-suggestions');
+		suggestions[0].innerHTML = result;
+	}
+
+	this.onKeyPress = function(keyCode)
+	{
+		var tbl = BX.findChild(_this.RESULT, {'tag':'div','class':'search-result'}, true);
+		if(!tbl)
+			return false;
+
+		var cnt = tbl.rows.length;
+
+		switch (keyCode)
+		{
+			case 27: // escape key - close search div
+				_this.RESULT.style.display = 'none';
+				_this.currentRow = -1;
+				_this.UnSelectAll();
+				return true;
+
+			case 40: // down key - navigate down on search results
+				if(_this.RESULT.style.display == 'none')
+					_this.RESULT.style.display = 'block';
+
+				var first = -1;
+				for(var i = 0; i < cnt; i++)
+				{
+					if(!BX.findChild(tbl.rows[i], {'class':'title-search-separator'}, true))
+					{
+						if(first == -1)
+							first = i;
+
+						if(_this.currentRow < i)
+						{
+							_this.currentRow = i;
+							break;
+						}
+						else if(tbl.rows[i].className == 'title-search-selected')
+						{
+							tbl.rows[i].className = '';
+						}
+					}
+				}
+
+				if(i == cnt && _this.currentRow != i)
+					_this.currentRow = first;
+
+				tbl.rows[_this.currentRow].className = 'title-search-selected';
+				return true;
+
+			case 38: // up key - navigate up on search results
+				if(_this.RESULT.style.display == 'none')
+					_this.RESULT.style.display = 'block';
+
+				var last = -1;
+				for(var i = cnt-1; i >= 0; i--)
+				{
+					if(!BX.findChild(tbl.rows[i], {'class':'title-search-separator'}, true))
+					{
+						if(last == -1)
+							last = i;
+
+						if(_this.currentRow > i)
+						{
+							_this.currentRow = i;
+							break;
+						}
+						else if(tbl.rows[i].className == 'title-search-selected')
+						{
+							tbl.rows[i].className = '';
+						}
+					}
+				}
+
+				if(i < 0 && _this.currentRow != i)
+					_this.currentRow = last;
+
+				tbl.rows[_this.currentRow].className = 'title-search-selected';
+				return true;
+
+			case 13: // enter key - choose current search result
+				if(_this.RESULT.style.display == 'block')
+				{
+					for(var i = 0; i < cnt; i++)
+					{
+						if(_this.currentRow == i)
+						{
+							if(!BX.findChild(tbl.rows[i], {'class':'title-search-separator'}, true))
+							{
+								var a = BX.findChild(tbl.rows[i], {'tag':'a'}, true);
+								if(a)
+								{
+									window.location = a.href;
+									return true;
+								}
+							}
+						}
+					}
+				}
+				return false;
+		}
+
+		return false;
+	}
+
+	this.onTimeout = function()
+	{
+		_this.onChange(function(){
+			setTimeout(_this.onTimeout, 500);
+		});
+	}
+
+	this.onChange = function(callback)
+	{
+		if(_this.INPUT.value != _this.oldValue && _this.INPUT.value != _this.startText)
+		{
+			_this.oldValue = _this.INPUT.value;
+			if(_this.INPUT.value.length >= _this.arParams.MIN_QUERY_LEN)
+			{
+				_this.cache_key = _this.arParams.INPUT_ID + '|' + _this.INPUT.value;
+				if(_this.cache[_this.cache_key] == null)
+				{
+					if(_this.WAIT)
+					{
+						var pos = BX.pos(_this.INPUT);
+						var height = (pos.bottom - pos.top)-2;
+						_this.WAIT.style.top = (pos.top+1) + 'px';
+						_this.WAIT.style.height = height + 'px';
+						_this.WAIT.style.width = height + 'px';
+						_this.WAIT.style.left = (pos.right - height + 2) + 'px';
+						_this.WAIT.style.display = 'block';
+					}
+
+					BX.ajax.post(
+						_this.arParams.AJAX_PAGE,
+						{
+							'ajax_call':'y',
+							'INPUT_ID':_this.arParams.INPUT_ID,
+							'q':_this.INPUT.value,
+							'l':_this.arParams.MIN_QUERY_LEN
+						},
+						function(result)
+						{
+							_this.cache[_this.cache_key] = result;
+							_this.ShowResult(result);
+							_this.currentRow = -1;
+							_this.EnableMouseEvents();
+							if(_this.WAIT)
+								_this.WAIT.style.display = 'none';
+							if (!!callback)
+								callback();
+						}
+					);
+					return;
+				}
+				else
+				{
+					_this.ShowResult(_this.cache[_this.cache_key]);
+					_this.currentRow = -1;
+					_this.EnableMouseEvents();
+				}
+			}
+			else
+			{
+				_this.RESULT.style.display = 'none';
+				_this.currentRow = -1;
+				_this.UnSelectAll();
+			}
+		}
+		if (!!callback)
+			callback();
+	}
+
+	this.UnSelectAll = function()
+	{
+		var tbl = BX.findChild(_this.RESULT, {'tag':'div','class':'search-result'}, true);
+		if(tbl)
+		{
+			var cnt = tbl.rows.length;
+			for(var i = 0; i < cnt; i++)
+				tbl.rows[i].className = '';
+		}
+	}
+
+	this.EnableMouseEvents = function()
+	{
+		var tbl = BX.findChild(_this.RESULT, {'tag':'div','class':'search-result'}, true);
+		if(tbl)
+		{
+			var cnt = tbl.rows.length;
+			for(var i = 0; i < cnt; i++)
+				if(!BX.findChild(tbl.rows[i], {'class':'title-search-separator'}, true))
+				{
+					tbl.rows[i].id = 'row_' + i;
+					tbl.rows[i].onmouseover = function (e) {
+						if(_this.currentRow != this.id.substr(4))
+						{
+							_this.UnSelectAll();
+							this.className = 'title-search-selected';
+							_this.currentRow = this.id.substr(4);
+						}
+					};
+					tbl.rows[i].onmouseout = function (e) {
+						this.className = '';
+						_this.currentRow = -1;
+					};
+				}
+		}
+	}
+
+	this.onFocusLost = function(hide)
+	{
+		setTimeout(function(){_this.RESULT.style.display = 'none';}, 250);
+	}
+
+	this.onFocusGain = function()
+	{
+		if(_this.RESULT.innerHTML.length)
+			_this.ShowResult();
+	}
+
+	this.onKeyDown = function(e)
+	{
+		if(!e)
+			e = window.event;
+
+		if (_this.RESULT.style.display == 'block')
+		{
+			if(_this.onKeyPress(e.keyCode))
+				return BX.PreventDefault(e);
+		}
+	}
+
+	this.Init = function()
+	{
+		this.CONTAINER = document.getElementById(this.arParams.CONTAINER_ID);
+		this.RESULT = document.body.appendChild(document.createElement("DIV"));
+		this.RESULT.className = 'search-suggestions';
+		this.INPUT = document.getElementById(this.arParams.INPUT_ID);
+		this.startText = this.oldValue = this.INPUT.value;
+		BX.bind(this.INPUT, 'focus', function() {_this.onFocusGain()});
+		BX.bind(this.INPUT, 'blur', function() {_this.onFocusLost()});
+
+		if(BX.browser.IsSafari() || BX.browser.IsIE())
+			this.INPUT.onkeydown = this.onKeyDown;
+		else
+			this.INPUT.onkeypress = this.onKeyDown;
+
+		if(this.arParams.WAIT_IMAGE)
+		{
+			this.WAIT = document.body.appendChild(document.createElement("DIV"));
+			this.WAIT.style.backgroundImage = "url('" + this.arParams.WAIT_IMAGE + "')";
+			if(!BX.browser.IsIE())
+				this.WAIT.style.backgroundRepeat = 'none';
+			this.WAIT.style.display = 'none';
+			this.WAIT.style.position = 'absolute';
+			this.WAIT.style.zIndex = '1100';
+		}
+
+		BX.bind(this.INPUT, 'bxchange', function() {_this.onChange()});
+	}
+
+	BX.ready(function (){_this.Init(arParams)});
+}
+
+	BX.ready(function(){
+		new JCTitleSearchModern({
+			'AJAX_PAGE' : '/students/raspis/',
+			'CONTAINER_ID': 'searchTitle',
+			'INPUT_ID': 'title-search-input',
+			'MIN_QUERY_LEN': 2
+		});
+	});
+						</script>
+					</div>
+				</div>
+			</div>
+		</header>
+
+
+		<div class="container container-main col-margin">
+			<div class="content">
+				<div class="col col-mb-12 col-4 col-dt-3">
+					<div class="white-box col-margin-bottom clearfix">
+						<div class="sidebar-nav">
+							<ul>
+								<li class="parent ">
+									<a href="/about_the_university/">Университет</a><ul>
+										<li><a href="/sveden">Сведения об образовательной организации</a></li>
+										<li><a href="/about_the_university/VSOKO">Внутренняя система оценки качества образования (ВСОКО)</a></li>
+										<li><a href="/about_the_university/management/">Руководство</a></li>
+										<li><a href="https://sibupk.sharepoint.com/sibupk">Портал для сотрудников</a></li>
+										<li><a href="/about_the_university/news/">Новости</a></li>
+										<li><a href="/about_the_university/academic_council/">Ученый совет</a></li>
+										<li><a href="/about_the_university/calendar.php">Календарь событий</a></li>
+										<li><a href="/about_the_university/library/">Информационно-библиотечный центр</a></li>
+										<li><a href="/about_the_university/structure/">Факультеты и кафедры</a></li>
+										<li><a href="/about_the_university/history.php">История</a></li>
+										<li><a href="/about_the_university/various">Разное</a></li>
+										<li><a href="/about_the_university/depts/">Подразделения</a></li>
+										<li><a href="https://sites.google.com/view/museum-sibupk">Виртуальный музей</a></li>
+										<li><a href="/about_the_university/offices/">Филиалы</a></li>
+										<li><a href="http://sibupk.tilda.ws/partners">Региональная сеть</a></li>
+										<li><a href="/about_the_university/1vyp">Наши выпускники</a></li>
+									</ul>
+								</li>
+								<li class="parent ">
+									<a href="/abitur/">Абитуриентам</a><ul>
+										<li><a href="/abitur/">Приемная кампания 2024</a></li>
+										<li><a href="/abitur/sprav">Справочник абитуриента</a></li>
+										<li><a href="https://lk.sibupk.su">Личный кабинет абитуриента</a></li>
+										<li><a href="/abitur/neighbor.php">Иностранным абитуриентам</a></li>
+										<li><a href="/abitur/target.php">Прием на целевое обучение</a></li>
+										<li><a href="/about_the_university/notifies/2060/">Олимпиада "Стань магистром!"</a></li>
+										<li><a href="/about_the_university/notifies/2084/">Олимпиада "Яркая жизнь"</a></li>
+									</ul>
+								</li>
+								<li class="parent current">
+									<a href="/students/">Студентам</a><ul>
+										<li class="current"><a href="/students/raspis">Расписание занятий</a></li>
+										<li><a href="/students/stoimost.php">Оплата обучения</a></li>
+										<li><a href="/portal">Электронный кабинет</a></li>
+										<li><a href="http://old.sibupk.su/services/std/login.php">Электронная зачетка</a></li>
+										<li><a href="/students/vstud/">Воспитательная работа и молодежная политика</a></li>
+										<li><a href="/sport">Спортивная жизнь</a></li>
+										<li><a href="http://sibupk.tilda.ws/career">Практика и трудоустройство</a></li>
+										<li><a href="/students/shtab/">Штаб студенческих отрядов</a></li>
+										<li><a href="https://sites.google.com/view/spupk/">Справочник студента</a></li>
+										<li><a href="http://lk.sibupk.su:5350">Анкетирование по преподавателям</a></li>
+										<li><a href="/students/hostel/">Информация об общежитиях</a></li>
+										<li><a href="/students/FLC">Центр финансовой грамотности</a></li>
+									</ul>
+								</li>
+								<li><a href="http://sibupk.tilda.ws/college">Колледж</a></li>
+								<li><a href="http://dpo.sibupk.su">Дополнительное образование</a></li>
+								<li class="parent ">
+									<a href="/science/">Наука</a><ul>
+										<li><a href="/science/scienceorg/">Отдел магистратуры и аспирантуры</a></li>
+										<li><a href="/science/nir/">Отдел координации НИР</a></li>
+										<li><a href="/science/spn/">Совет по науке</a></li>
+										<li><a href="/science/projwork/">Отдел проектной работы</a></li>
+										<li><a href="/science/vestnik">Научно-теоретический журнал "Вестник СибУПК"</a></li>
+										<li><a href="/science/neworg/">Предстоящие научные мероприятия</a></li>
+										<li><a href="/science/fsj/">Рекомендуемые научные журналы</a></li>
+										<li><a href="/science/grants/">Гранты</a></li>
+										<li><a href="/science/scnapr/">Научные школы</a></li>
+										<li><a href="/science/research">Сборники конференций</a></li>
+										<li><a href="/science/sno/">Студенческое научное объединение</a></li>
+										<li><a href="/science/sau/">Национальный проект «Наука и университеты»</a></li>
+									</ul>
+								</li>
+								<li><a href="/about_the_university/VSOKO">ВСОКО</a></li>
+								<li><a href="/portal/eios.php">ЭИОС</a></li>
+								<li><a href="http://sibupk.tilda.ws/distance">Дистанционное обучение</a></li>
+								<li><a href="http://sibupk.tilda.ws/international">Международное сотрудничество</a></li>
+								<li><a href="/contacts/">Контакты</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="white-box col-margin-bottom p20 clearfix">
+
+						<div class="sidebar-info-block">
+							<i class="icon icon-big-clock"></i>
+							<div class="ov-h">
+								<p class="sidebar-info-text" id="bx_651765591_341">
+									<a href="/about_the_university/offices/341/">Сибирский университет потребительской кооперации (СибУПК)</a>
+									<br>для работников и обучающихся с 6-30 до 22-00 часов, для посетителей с 9-00 до 17-00 часов
+								</p>
+							</div>
+						</div>
+
+						<div class="sidebar-info-block">
+							<i class="icon icon-big-phone"></i>
+							<div class="ov-h">
+								<p id="bx_651765591_341" class="sidebar-info-text">
+									Приемная комиссия: +7(383) 346-58-52, +79137030522; Бухгалтерия (по вопросам оплаты): +7 (383) 346-54-25, +79139141838                        <br><span class="text-light">Новосибирск</span>
+								</p>
+								<p id="bx_651765591_342" class="sidebar-info-text">
+									+7 (3022) 32-03-65                        <br><span class="text-light">Чита</span>
+								</p>
+							</div>
+						</div>
+						<p class="ta-center">
+							<a href="/contacts/">Показать на карте<i class="icon icon-arrow-right ml10"></i></a>
+						</p>
+					</div>
+
+				</div>
+				<div class="col col-mb-12 col-8 col-dt-9">
+					<div class="breadcrumb"><ul><li><a href="/" title="Главная">Главная</a></li><li><span class="crumb_marker">&rsaquo;</span></li><li><a href="/students/" title="Студентам">Студентам</a></li><li><span class="crumb_marker">&rsaquo;</span></li><li><span>Расписание занятий</span></li></ul></div>                                <div class="white-box col-margin-bottom padding-box ">
+						<h1>Расписание занятий</h1>
+						<table width="100%" cellspacing="0" cellpadding="0" align="center" class="contentpane" style="font-family: Helvetica, Arial, sans-serif; line-height: 23px; font-size: 14px; border-spacing: 0px; margin: 0px; padding: 0px; width: 700px; color: #000000;">
+							<tbody>
+								<tr>
+									<td colspan="2" width="60%" valign="top" class="contentdescription" style="padding-left: 0px; padding-right: 5px; padding-bottom: 5px; border-image: initial;">
+										<span style="color: #ff0000;"> </span>
+										<hr>
+										<span style="color: #ff0000;"> </span>
+										<ul type="circle">
+											<li style="padding-left: 0px; color: #ff0000;"><a href="./inforaspis.php">Информация <b>для студентов первого курса очно-заочной и заочной форм</b> обучения</a></li>
+											<li style="padding-left: 0px;"><a href="./rings">Расписание звонков</a></li>
+											<li style="padding-left: 0px;"><a href="./numweek">Нумерация недель</a></li>
+											<li style="padding-left: 0px; font: 18px Calibri, Arial, sans-serif; color: #f15b40;"> Текущая неделя: 49 </li>
+										</ul>
+										<hr>
+										<p style="text-align: center; margin: 0px; padding: 0px;">
+											<span style="font-size: 16px;"><b>РАСПИСАНИЕ ЗАНЯТИЙ</b></span>
+										</p>
+										<hr>
+										<p style="padding-left: 0px; margin-left: 0px;">
+											<a href="http://old.sibupk.su/services/shedule_new/index.php?mode=1" target="_blank">для студентов</a>
+										</p>
+										<p style="padding-left: 0px; margin-left: 0px;">
+											<a href="http://old.sibupk.su/services/shedule_new/index.php?mode=5" target="_blank">расписание экзаменационной сессии и пересдач (очная форма обучения)</a>
+										</p>
+										<p>
+											<a href="./asp.php">для аспирантов (расписание занятий и промежуточной аттестации)</a>
+										</p>
+										<p style="padding-left: 0px; margin-left: 0px;">
+											<a id="bxid_298139" href="http://old.sibupk.su/services/shedule_new/index.php?mode=6" target="_blank">обзорные лекции перед ИГА</a>
+										</p>
+										<p style="padding-left: 0px; margin-left: 0px;">
+											<a id="bxid_776137" href="http://old.sibupk.su/services/shedule_new/index.php?mode=2" target="_blank">для преподавателей</a>
+										</p>
+										<p style="padding-left: 0px; margin-left: 0px;">
+											<a id="bxid_809998" href="http://old.sibupk.su/services/shedule_new/index.php?mode=3" target="_blank">по аудиториям</a>
+										</p>
+										<p style="padding-left: 0px; margin-left: 0px;">
+											<a id="bxid_37712" href="http://old.sibupk.su/services/shedule_new/index.php?mode=4" target="_blank">для кафедр</a>
+										</p>
+										<hr>
+										<p style="padding-left: 0px; margin-left: 0px;">
+											<a href="http://old.sibupk.su/services/shedule_new/index.php?mode=3" target="_blank">
+												<span style="font-size: 16px;">
+													﻿
+													<html>
+													<head>
+
+														<title>Дата </title>
+														<style type="text/css">
+															.style1 {
+																border-width: 1px;
+															}
+
+															.style2 {
+																border-style: solid;
+																border-width: 1px;
+															}
+
+															.style3 {
+																text-align: center;
+																border-style: solid;
+																border-width: 1px;
+															}
+														</style>
+
+													</head>
+													<body bgcolor="white">
+
+
+
+
+														<p align="left">Последнее обновление: 24.05.2024</p>
+
+
+
+													</body>
+												</html>
+											</span>
+										</a>
+									</p>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<br>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="footer-wrapper">
+	<footer class="container container-footer">
+
+		<div class="content footer-menu-content">
+			<div class="col col-mb-12 col-4">
+				<ul>
+					<li class="col-margin-bottom">
+						<div class="h4">Университет</div>
+						<ul>
+							<li><a href="/sveden">Сведения об образовательной организации</a></li>
+							<li><a href="/about_the_university/VSOKO">Внутренняя система оценки качества образования (ВСОКО)</a></li>
+							<li><a href="/about_the_university/management/">Руководство</a></li>
+							<li><a href="https://sibupk.sharepoint.com/sibupk">Портал для сотрудников</a></li>
+							<li><a href="/about_the_university/news/">Новости</a></li>
+							<li><a href="/about_the_university/academic_council/">Ученый совет</a></li>
+							<li><a href="/about_the_university/calendar.php">Календарь событий</a></li>
+							<li><a href="/about_the_university/library/">Информационно-библиотечный центр</a></li>
+							<li><a href="/about_the_university/structure/">Факультеты и кафедры</a></li>
+							<li><a href="/about_the_university/history.php">История</a></li>
+							<li><a href="/about_the_university/various">Разное</a></li>
+							<li><a href="/about_the_university/depts/">Подразделения</a></li>
+							<li><a href="https://sites.google.com/view/museum-sibupk">Виртуальный музей</a></li>
+							<li><a href="/about_the_university/offices/">Филиалы</a></li>
+							<li><a href="http://sibupk.tilda.ws/partners">Региональная сеть</a></li>
+							<li><a href="/about_the_university/1vyp">Наши выпускники</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+			<div class="col col-mb-12 col-4">
+				<ul>
+					<li class="col-margin-bottom">
+						<div class="h4">Абитуриентам</div>
+						<ul>
+							<li><a href="/abitur/">Приемная кампания 2024</a></li>
+							<li><a href="/abitur/sprav">Справочник абитуриента</a></li>
+							<li><a href="https://lk.sibupk.su">Личный кабинет абитуриента</a></li>
+							<li><a href="/abitur/neighbor.php">Иностранным абитуриентам</a></li>
+							<li><a href="/abitur/target.php">Прием на целевое обучение</a></li>
+							<li><a href="/about_the_university/notifies/2060/">Олимпиада "Стань магистром!"</a></li>
+							<li><a href="/about_the_university/notifies/2084/">Олимпиада "Яркая жизнь"</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+			<div class="col col-mb-12 col-4">
+				<ul>
+					<li class="col-margin-bottom">
+						<div class="h4">Студентам</div>
+						<ul>
+							<li><a href="/students/raspis">Расписание занятий</a></li>
+							<li><a href="/students/stoimost.php">Оплата обучения</a></li>
+							<li><a href="/portal">Электронный кабинет</a></li>
+							<li><a href="http://old.sibupk.su/services/std/login.php">Электронная зачетка</a></li>
+							<li><a href="/students/vstud/">Воспитательная работа и молодежная политика</a></li>
+							<li><a href="/sport">Спортивная жизнь</a></li>
+							<li><a href="http://sibupk.tilda.ws/career">Практика и трудоустройство</a></li>
+							<li><a href="/students/shtab/">Штаб студенческих отрядов</a></li>
+							<li><a href="https://sites.google.com/view/spupk/">Справочник студента</a></li>
+							<li><a href="http://lk.sibupk.su:5350">Анкетирование по преподавателям</a></li>
+							<li><a href="/students/hostel/">Информация об общежитиях</a></li>
+							<li><a href="/students/FLC">Центр финансовой грамотности</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+			<div class="col col-mb-12 col-4">
+				<ul>
+					<li class="col-margin-bottom">
+						<div class="h4">Наука</div>
+						<ul>
+							<li><a href="/science/scienceorg/">Отдел магистратуры и аспирантуры</a></li>
+							<li><a href="/science/nir/">Отдел координации НИР</a></li>
+							<li><a href="/science/spn/">Совет по науке</a></li>
+							<li><a href="/science/projwork/">Отдел проектной работы</a></li>
+							<li><a href="/science/vestnik">Научно-теоретический журнал "Вестник СибУПК"</a></li>
+							<li><a href="/science/neworg/">Предстоящие научные мероприятия</a></li>
+							<li><a href="/science/fsj/">Рекомендуемые научные журналы</a></li>
+							<li><a href="/science/grants/">Гранты</a></li>
+							<li><a href="/science/scnapr/">Научные школы</a></li>
+							<li><a href="/science/research">Сборники конференций</a></li>
+							<li><a href="/science/sno/">Студенческое научное объединение</a></li>
+							<li><a href="/science/sau/">Национальный проект «Наука и университеты»</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="content">
+			<div class="col col-mb-12 col-4">
+				&copy; <br>
+				<a href="/contacts/">Контакты</a>
+				<br><a href="/userconsent/?data=eyJpZCI6IjEiLCJyZXBsYWNlIjpbXX0%3D&sec=ZTJkZDE3ODk1ZjkzNWRjNGU2ODRlZGQ5NmFiY2ZlODc0MWQyZGVkMjI3MmRkMTFhYzA1ZDk2NjJiM2I0NWUzYQ%3D%3D">Политика конфиденциальности</a>
+			</div>
+
+			<div class="col col-mb-12 col-4">                                      пр-т Карла Маркса, 26<br>    Приемная комиссия: +7(383) 346-58-52, +79137030522; Бухгалтерия (по вопросам оплаты): +7 (383) 346-54-25, +79139141838<br>    для работников и обучающихся с 6-30 до 22-00 часов, для посетителей с 9-00 до 17-00 часов<br>            </div>
+
+			<div class="col col-mb-12 col-4">
+
+				<div class="social-networks">
+					<a href="https://vk.com/sibupk" title="ВКонтакте" class="social-network"><i class="icon icon-social-vk"></i></a>
+					<a href="https://www.youtube.com/channel/UCu51SZvqV0xByQrjvPQjmnw" title="YouTube" class="social-network"><i class="icon icon-social-yt"></i></a>
+				</div>
+				<div id="bx-composite-banner"></div>
+			</div>
+		</div>
+	</footer>
+</div> <!-- .footer-wrapper -->
+<div class="mobile-nav-wrapper">
+	<div class="mobile-nav">
+	</div>
+</div>
+</body>
+</html>
