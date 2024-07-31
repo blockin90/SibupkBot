@@ -1,0 +1,6 @@
+@SibupkScheduleBot_HostAddress = http://localhost:5104
+
+GET {{SibupkScheduleBot_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

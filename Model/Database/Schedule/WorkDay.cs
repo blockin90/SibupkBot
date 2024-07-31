@@ -35,6 +35,10 @@ namespace UpkModel.Database.Schedule
             }
             return equals;
         }
+        public override int GetHashCode()
+        {
+            return Date.GetHashCode() ^ Lessons.GetHashCode();
+        }
     }
     public class StudentWorkDay : WorkDay
     {

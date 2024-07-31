@@ -29,9 +29,22 @@ namespace UpkModel.Database.Schedule
                 other.Group == this.Group &&
                 other.LessonType == this.LessonType &&
                 other.TeacherName == this.TeacherName;
+        }
 
+        public override int GetHashCode()
+        {
+            return Online.GetHashCode()
+                ^ Group.GetHashCode()
+                ^ LessonNum.GetHashCode()
+                ^ Auditory.GetHashCode()
+                ^ Date.GetHashCode()
+                ^ Discipline.GetHashCode()
+                ^ Group.GetHashCode()
+                ^ LessonType.GetHashCode()
+                ^ TeacherName.GetHashCode();
 
         }
+
         [Range(1,9)]
         public int LessonNum { get; set; }
         [Required, MaxLength(100)]
