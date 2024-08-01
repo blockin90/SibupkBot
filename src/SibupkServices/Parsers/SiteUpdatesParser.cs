@@ -20,7 +20,7 @@ namespace SibupkCommonServices.Parsers
             if (match.Success) {
                 try {
                     return DateTime.ParseExact(match.Groups[updateDateGroupName].Value, "dd.MM.yyyy", CultureInfo.InvariantCulture);
-                } catch (Exception ex) {
+                } catch (Exception) {
                     return DateTime.Today;
                 }
             }

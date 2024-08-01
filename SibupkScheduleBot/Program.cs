@@ -1,6 +1,9 @@
 
+using Microsoft.Extensions.Options;
 using Quartz;
 using SibupkScheduleBot.Jobs;
+using SibupkScheduleBot.Services;
+using Telegram.Bot;
 
 namespace SibupkScheduleBot
 {
@@ -11,7 +14,28 @@ namespace SibupkScheduleBot
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            
+
+            builder.Services.Configure<BotConfiguration>(builder.Configuration.GetSection("BotConfiguration"));
+
+            builder.Services.AddHttpClient(Constants.telegramApiHttpClientName)
+                .RemoveAllLoggers()
+                .AddTypedClient<ITelegramBotClient>((httpClient, sp) =>
+                {
+                    BotConfiguration? botConfiguration = sp.GetService<IOptions<BotConfiguration>>()?.Value;
+                    ArgumentNullException.ThrowIfNull(botConfiguration);
+                    TelegramBotClientOptions options = new(botConfiguration.BotToken);
+                    return new TelegramBotClient(options, httpClient);
+                });
+;
+            builder.Services.AddHttpClient<SibupkPageDownloaderService>( httpClient =>
+            {
+                httpClient.BaseAddress = new Uri("");
+            });
+            builder.Services.AddScoped<UpdateHandler>();
+            builder.Services.AddScoped<ReceiverService>();
+            builder.Services.AddHostedService<PollingService>();
+
+            //builder.Services.AddAuthorization();
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
