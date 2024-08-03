@@ -33,7 +33,7 @@ namespace SibupkScheduleBot
             });
             builder.Services.AddScoped<UpdateHandler>();
             builder.Services.AddScoped<ReceiverService>();
-            builder.Services.AddHostedService<PollingService>();
+            builder.Services.AddHostedService<TelegramPollingService>();
 
             //builder.Services.AddAuthorization();
             builder.Services.AddControllers();
