@@ -54,6 +54,15 @@ namespace SibupkScheduleBot
                      )
                 );
 
+                JobKey rabbitPollingJobKey = new JobKey(nameof(RabbitMqPoolingJob));
+                q.AddJob(typeof(RabbitMqPoolingJob), rabbitPollingJobKey);
+                q.AddTrigger(triggerConfig => triggerConfig
+                    .ForJob(rabbitPollingJobKey)
+                    .WithSimpleSchedule( builder => 
+                        builder.WithInterval(TimeSpan.FromMicroseconds(500))
+                            .RepeatForever()
+                     )
+                );
             });
 
             builder.Services.AddQuartzHostedService(options =>
