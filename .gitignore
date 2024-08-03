@@ -266,3 +266,4 @@ __pycache__/
 /ServerlessBot
 /UpkBot.Serverless.Database
 /UpkBot.Serverless.Triggers
+/SibupkScheduleBot/appsettings.json
